@@ -1,0 +1,2085 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔮 2026年総合占い 🔮</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap');
+
+:root {
+  --pink: #ff6b9d;
+  --pink-light: #ffc2d4;
+  --lavender: #c8a2f8;
+  --lavender-light: #e8d5ff;
+  --mint: #7dd3c0;
+  --mint-light: #c5f0e5;
+  --yellow: #ffd166;
+  --yellow-light: #fff0c2;
+  --blue: #73b4ff;
+  --blue-light: #c2dfff;
+  --coral: #ff8a80;
+  --bg: #fef6ff;
+  --card-bg: rgba(255,255,255,0.92);
+  --text: #4a3860;
+  --text-light: #8a7a9a;
+  --shadow: 0 8px 32px rgba(180,140,220,0.18);
+  --radius: 20px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Zen Maru Gothic', 'Hiragino Maru Gothic Pro', 'BIZ UDGothic', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Background decorations */
+body::before {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(200,162,248,0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(255,107,157,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(125,211,192,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 10% 70%, rgba(255,209,102,0.1) 0%, transparent 50%);
+  z-index: -1;
+  animation: bgFloat 20s ease-in-out infinite;
+}
+
+@keyframes bgFloat {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(2%, -1%) rotate(1deg); }
+  66% { transform: translate(-1%, 1%) rotate(-0.5deg); }
+}
+
+/* Floating stars */
+.stars {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+.star {
+  position: absolute;
+  font-size: 20px;
+  opacity: 0.3;
+  animation: twinkle 3s ease-in-out infinite;
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+}
+
+/* Header */
+.header {
+  text-align: center;
+  padding: 30px 20px 20px;
+  position: relative;
+}
+.header h1 {
+  font-size: 2.2rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--pink), var(--lavender), var(--pink));
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: gradientShift 4s ease-in-out infinite;
+  margin-bottom: 8px;
+}
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.header p {
+  color: var(--text-light);
+  font-size: 0.95rem;
+}
+
+/* Container */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 16px 40px;
+}
+
+/* Input form */
+.input-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  border-radius: var(--radius);
+  padding: 30px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(200,162,248,0.2);
+  margin-bottom: 24px;
+  position: relative;
+  overflow: visible;
+}
+.input-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  border-radius: var(--radius) var(--radius) 0 0;
+  background: linear-gradient(90deg, var(--pink), var(--lavender), var(--mint), var(--yellow), var(--pink));
+  background-size: 200% 100%;
+  animation: gradientShift 3s linear infinite;
+}
+.input-card h2 {
+  font-size: 1.3rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--lavender);
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.form-group input, .form-group select {
+  padding: 12px 16px;
+  border: 2px solid var(--lavender-light);
+  border-radius: 14px;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--text);
+  background: rgba(255,255,255,0.8);
+  transition: all 0.3s;
+  outline: none;
+}
+.form-group input:focus, .form-group select:focus {
+  border-color: var(--lavender);
+  box-shadow: 0 0 0 4px rgba(200,162,248,0.15);
+}
+
+.btn-fortune {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  margin: 0 auto;
+  padding: 16px 32px;
+  background: linear-gradient(135deg, var(--pink), var(--lavender));
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-family: inherit;
+  font-size: 1.15rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 6px 20px rgba(255,107,157,0.35);
+  position: relative;
+  overflow: hidden;
+}
+.btn-fortune:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 28px rgba(255,107,157,0.45);
+}
+.btn-fortune:active {
+  transform: translateY(0);
+}
+.btn-fortune::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(transparent, rgba(255,255,255,0.15), transparent);
+  transform: rotate(45deg);
+  animation: btnShine 3s ease-in-out infinite;
+}
+@keyframes btnShine {
+  0% { transform: translateX(-100%) rotate(45deg); }
+  30%, 100% { transform: translateX(100%) rotate(45deg); }
+}
+
+/* Loading */
+.loading {
+  display: none;
+  text-align: center;
+  padding: 60px 20px;
+}
+.loading.active { display: block; }
+.loading-crystal {
+  font-size: 80px;
+  animation: crystalFloat 2s ease-in-out infinite;
+  display: inline-block;
+}
+@keyframes crystalFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(5deg); }
+}
+.loading p {
+  margin-top: 16px;
+  color: var(--lavender);
+  font-weight: 700;
+  font-size: 1.1rem;
+  animation: dots 1.5s infinite;
+}
+@keyframes dots {
+  0% { content: '.'; }
+  33% { content: '..'; }
+  66% { content: '...'; }
+}
+
+/* Results */
+#results { display: none; }
+#results.active { display: block; }
+
+/* Profile summary */
+.profile-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(200,162,248,0.2);
+  margin-bottom: 24px;
+  text-align: center;
+}
+.profile-card h2 {
+  font-size: 1.2rem;
+  margin-bottom: 16px;
+  color: var(--pink);
+}
+.profile-badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+.badge-pink { background: var(--pink-light); color: #c0406a; }
+.badge-lavender { background: var(--lavender-light); color: #7a52b8; }
+.badge-mint { background: var(--mint-light); color: #3a9080; }
+.badge-yellow { background: var(--yellow-light); color: #b89030; }
+.badge-blue { background: var(--blue-light); color: #3070c0; }
+.badge-gold { background: linear-gradient(135deg, #fff0c2, #ffd166); color: #8a6d20; }
+.badge-purple { background: linear-gradient(135deg, #e8d5ff, #d8b4fe); color: #6b21a8; }
+
+.form-hint {
+  font-size: 0.75rem;
+  color: var(--text-light);
+  margin-top: 2px;
+}
+
+/* Time period tabs */
+.period-tabs {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding: 4px;
+  margin-bottom: 24px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.period-tabs::-webkit-scrollbar { display: none; }
+.period-tab {
+  flex-shrink: 0;
+  padding: 10px 20px;
+  border: 2px solid var(--lavender-light);
+  border-radius: 50px;
+  background: white;
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-light);
+  cursor: pointer;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+.period-tab:hover {
+  border-color: var(--lavender);
+  color: var(--lavender);
+}
+.period-tab.active {
+  background: linear-gradient(135deg, var(--lavender), var(--pink));
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 4px 15px rgba(200,162,248,0.3);
+}
+
+/* Period panel */
+.period-panel { display: none; }
+.period-panel.active { display: block; }
+
+/* Fortune category cards */
+.fortune-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.fortune-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(200,162,248,0.15);
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.fortune-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(180,140,220,0.25);
+}
+.fortune-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.fortune-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+.fortune-card-header h3 {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+/* Score bar */
+.score-section {
+  margin-bottom: 12px;
+}
+.score-bar-bg {
+  width: 100%;
+  height: 10px;
+  background: #f0e8f5;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+.score-bar-fill {
+  height: 100%;
+  border-radius: 10px;
+  transition: width 1s ease-out;
+  position: relative;
+}
+.score-bar-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  animation: barShimmer 2s infinite;
+}
+@keyframes barShimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+.score-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+.score-num {
+  font-weight: 900;
+  font-size: 1.4rem;
+}
+.score-stars {
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+}
+
+.fortune-text {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+/* Lucky section */
+.lucky-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(200,162,248,0.2);
+  margin-bottom: 24px;
+}
+.lucky-card h2 {
+  font-size: 1.15rem;
+  margin-bottom: 16px;
+  text-align: center;
+  color: var(--pink);
+}
+.lucky-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+}
+.lucky-item {
+  text-align: center;
+  padding: 16px 12px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.6);
+  border: 1px solid rgba(200,162,248,0.1);
+}
+.lucky-item .lucky-emoji {
+  font-size: 32px;
+  margin-bottom: 8px;
+  display: block;
+}
+.lucky-item .lucky-label {
+  font-size: 0.75rem;
+  color: var(--text-light);
+  margin-bottom: 4px;
+}
+.lucky-item .lucky-value {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* Advice card */
+.advice-card {
+  background: linear-gradient(135deg, rgba(255,107,157,0.08), rgba(200,162,248,0.08), rgba(125,211,192,0.08));
+  backdrop-filter: blur(20px);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(200,162,248,0.2);
+  margin-bottom: 24px;
+}
+.advice-card h2 {
+  font-size: 1.15rem;
+  margin-bottom: 16px;
+  text-align: center;
+}
+.advice-text {
+  font-size: 0.95rem;
+  line-height: 1.8;
+  text-align: center;
+  color: var(--text);
+  padding: 0 10px;
+}
+
+/* Color swatch */
+.color-swatch {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 6px;
+  border: 2px solid rgba(255,255,255,0.8);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Radar chart */
+.chart-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(200,162,248,0.2);
+  margin-bottom: 24px;
+  text-align: center;
+}
+.chart-card h2 {
+  font-size: 1.15rem;
+  margin-bottom: 16px;
+  color: var(--lavender);
+}
+.radar-container {
+  max-width: 360px;
+  margin: 0 auto;
+}
+canvas { max-width: 100%; }
+
+/* Systems detail */
+.systems-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  border: 1px solid rgba(200,162,248,0.2);
+  margin-bottom: 24px;
+}
+.systems-card h2 {
+  font-size: 1.15rem;
+  margin-bottom: 16px;
+  text-align: center;
+  color: var(--mint);
+}
+.system-item {
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(200,162,248,0.1);
+}
+.system-item:last-child { border-bottom: none; }
+.system-item h4 {
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.system-item p {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  line-height: 1.6;
+}
+
+/* Reset button */
+.btn-reset {
+  display: block;
+  width: 200px;
+  margin: 30px auto;
+  padding: 14px 24px;
+  background: white;
+  border: 2px solid var(--lavender-light);
+  border-radius: 50px;
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--lavender);
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.btn-reset:hover {
+  border-color: var(--lavender);
+  background: var(--lavender-light);
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 30px 20px;
+  color: var(--text-light);
+  font-size: 0.8rem;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .header h1 { font-size: 1.6rem; }
+  .input-card { padding: 20px; }
+  .form-grid { grid-template-columns: 1fr; }
+  .fortune-grid { grid-template-columns: 1fr; }
+  .period-tab { padding: 8px 14px; font-size: 0.82rem; }
+  .lucky-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Animations */
+.fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fortune-card { animation: cardIn 0.5s ease-out both; }
+.fortune-card:nth-child(1) { animation-delay: 0.05s; }
+.fortune-card:nth-child(2) { animation-delay: 0.1s; }
+.fortune-card:nth-child(3) { animation-delay: 0.15s; }
+.fortune-card:nth-child(4) { animation-delay: 0.2s; }
+.fortune-card:nth-child(5) { animation-delay: 0.25s; }
+.fortune-card:nth-child(6) { animation-delay: 0.3s; }
+.fortune-card:nth-child(7) { animation-delay: 0.35s; }
+.fortune-card:nth-child(8) { animation-delay: 0.4s; }
+.fortune-card:nth-child(9) { animation-delay: 0.45s; }
+.fortune-card:nth-child(10) { animation-delay: 0.5s; }
+@keyframes cardIn {
+  from { opacity: 0; transform: translateY(30px) scale(0.95); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ==================== Quick Fortune (30秒占い) ==================== */
+.quick-fortune {
+  background: linear-gradient(135deg, rgba(255,255,255,0.95), rgba(254,246,255,0.95));
+  backdrop-filter: blur(20px);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  border: 2px dashed var(--lavender);
+  margin-bottom: 24px;
+  text-align: center;
+  position: relative;
+  overflow: visible;
+}
+.quick-fortune h2 { font-size: 1.3rem; color: var(--text); margin-bottom: 6px; }
+.quick-fortune .quick-sub { font-size: 0.85rem; color: var(--text-light); margin-bottom: 16px; }
+.quick-fortune-input {
+  display: flex; gap: 10px; justify-content: center; align-items: center; flex-wrap: wrap;
+}
+.quick-fortune-input input[type="date"] {
+  padding: 10px 16px; border-radius: 50px; border: 2px solid var(--lavender-light);
+  font-family: inherit; font-size: 1rem; color: var(--text); background: #fff;
+  outline: none; transition: border-color 0.3s;
+}
+.quick-fortune-input input[type="date"]:focus { border-color: var(--lavender); }
+.btn-quick {
+  padding: 10px 24px; border-radius: 50px; border: none; cursor: pointer;
+  font-family: inherit; font-size: 0.95rem; font-weight: 700;
+  background: linear-gradient(135deg, var(--mint), var(--blue));
+  color: #fff; transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn-quick:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(125,211,192,0.4); }
+.quick-result {
+  display: none; margin-top: 20px; padding: 20px; border-radius: 16px;
+  background: linear-gradient(135deg, rgba(200,162,248,0.08), rgba(125,211,192,0.08));
+}
+.quick-result.active { display: block; animation: fadeInUp 0.5s ease; }
+.quick-result-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px;
+}
+.quick-result-item {
+  background: #fff; border-radius: 12px; padding: 14px 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.quick-result-item .qr-label { font-size: 0.75rem; color: var(--text-light); margin-bottom: 4px; }
+.quick-result-item .qr-value { font-size: 1.1rem; font-weight: 700; color: var(--text); }
+.quick-result-item .qr-emoji { font-size: 1.5rem; margin-bottom: 4px; }
+.quick-fortune-text {
+  font-size: 1rem; line-height: 1.7; color: var(--text); margin-bottom: 16px;
+  padding: 12px; background: rgba(255,255,255,0.8); border-radius: 12px;
+  border-left: 4px solid var(--lavender);
+}
+.btn-full {
+  display: inline-block; padding: 10px 28px; border-radius: 50px; border: none; cursor: pointer;
+  font-family: inherit; font-size: 0.9rem; font-weight: 700;
+  background: linear-gradient(135deg, var(--pink), var(--lavender));
+  color: #fff; text-decoration: none; transition: transform 0.2s;
+}
+.btn-full:hover { transform: scale(1.05); }
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==================== SNS Share Button ==================== */
+.share-section { text-align: center; margin: 24px 0; }
+.btn-share-x {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 28px; border-radius: 50px; border: none; cursor: pointer;
+  font-family: inherit; font-size: 0.95rem; font-weight: 700;
+  background: #000; color: #fff; transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn-share-x:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+.btn-share-x svg { width: 18px; height: 18px; fill: #fff; }
+
+/* ==================== Star Particle Animation ==================== */
+.particle-container {
+  position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+  pointer-events: none; z-index: 9999; overflow: hidden;
+}
+.particle {
+  position: absolute; top: -50px;
+  animation: particleFall linear forwards;
+  font-size: 20px; opacity: 0.9;
+}
+@keyframes particleFall {
+  0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 1; }
+  70% { opacity: 0.8; }
+  100% { transform: translateY(110vh) rotate(720deg) scale(0.3); opacity: 0; }
+}
+
+/* ==================== Card Flip Animation ==================== */
+.fortune-card {
+  perspective: 1000px;
+}
+.fortune-card.flip-in {
+  animation: cardFlipIn 0.6s ease forwards;
+}
+@keyframes cardFlipIn {
+  0% { transform: perspective(1000px) rotateY(-90deg); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: perspective(1000px) rotateY(0deg); opacity: 1; }
+}
+
+/* ==================== Crystal Glow Animation ==================== */
+.loading .loading-crystal {
+  animation: crystalFloat 2s ease-in-out infinite, crystalGlow 1.2s ease-in-out infinite alternate;
+}
+@keyframes crystalGlow {
+  0% { filter: brightness(1) drop-shadow(0 0 8px rgba(200,162,248,0.3)); }
+  100% { filter: brightness(1.4) drop-shadow(0 0 25px rgba(200,162,248,0.8)) drop-shadow(0 0 50px rgba(255,107,157,0.4)); }
+}
+
+@media (max-width: 600px) {
+  .quick-result-grid { grid-template-columns: 1fr; }
+  .quick-fortune-input { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+
+<header class="header">
+  <h1>🔮 2026年 総合占い 🔮</h1>
+  <p>四柱推命・九星気学・西洋占星術・密教占星術・カバラ数秘術 etc. であなたの運勢を徹底解析</p>
+</header>
+
+<div class="container">
+  <!-- Quick Fortune (30秒占い) -->
+  <div class="quick-fortune" id="quickFortune">
+    <h2>⚡ 30秒占い ⚡</h2>
+    <p class="quick-sub">生年月日だけで今日の運勢をサクッとチェック！</p>
+    <div class="quick-fortune-input">
+      <input type="date" id="quickBirthday" value="1990-06-15" />
+      <button class="btn-quick" onclick="quickFortune()">✨ 今日の運勢</button>
+    </div>
+    <div class="quick-result" id="quickResult"></div>
+  </div>
+
+  <!-- Input Form -->
+  <div class="input-card" id="inputCard">
+    <h2>✨ あなたの情報を入力してください ✨</h2>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>🎂 生年月日</label>
+        <input type="date" id="birthday" value="1990-06-15" />
+      </div>
+      <div class="form-group">
+        <label>🩸 血液型</label>
+        <select id="bloodType">
+          <option value="A">A型</option>
+          <option value="B">B型</option>
+          <option value="O">O型</option>
+          <option value="AB">AB型</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>👤 性別</label>
+        <select id="gender">
+          <option value="female">女性</option>
+          <option value="male">男性</option>
+          <option value="other">その他</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>✍️ お名前（ローマ字）</label>
+        <input type="text" id="nameRomaji" placeholder="例: Yamada Taro" />
+        <small class="form-hint">カバラ数秘術に使用します（任意）</small>
+      </div>
+    </div>
+    <button class="btn-fortune" onclick="startFortune()">🔮 占いを開始する</button>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading" id="loading">
+    <div class="loading-crystal">🔮</div>
+    <p>運命の糸を読み解いています...</p>
+  </div>
+
+  <!-- Results -->
+  <div id="results">
+    <!-- Profile -->
+    <div class="profile-card fade-in" id="profileCard"></div>
+
+    <!-- Radar Chart -->
+    <div class="chart-card fade-in">
+      <h2>📊 運勢レーダーチャート</h2>
+      <div class="radar-container">
+        <canvas id="radarChart" width="360" height="360"></canvas>
+      </div>
+    </div>
+
+    <!-- Period Tabs -->
+    <div class="period-tabs" id="periodTabs">
+      <button class="period-tab active" data-period="year">🗓️ 2026年運</button>
+      <button class="period-tab" data-period="month">📅 今月の運勢</button>
+      <button class="period-tab" data-period="week">📆 今週の運勢</button>
+      <button class="period-tab" data-period="day">📋 今日の運勢</button>
+      <button class="period-tab" data-period="today_special">⭐ 今日限定</button>
+    </div>
+
+    <!-- Period Panels -->
+    <div id="periodPanels"></div>
+
+    <!-- Systems detail -->
+    <div class="systems-card fade-in" id="systemsCard"></div>
+
+    <!-- SNS Share -->
+    <div class="share-section" id="shareSection">
+      <button class="btn-share-x" onclick="shareOnX()">
+        <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        Xでシェアする
+      </button>
+    </div>
+
+    <!-- Reset -->
+    <button class="btn-reset" onclick="resetForm()">🔄 もう一度占う</button>
+  </div>
+</div>
+
+<footer class="footer">
+  <p>🔮 2026年総合占い — 占い結果はエンターテインメントとしてお楽しみください 🔮</p>
+</footer>
+
+<script>
+// ==================== Floating Stars ====================
+(function createStars() {
+  const container = document.getElementById('stars');
+  const symbols = ['✦','✧','⭐','💫','⋆','✵','🌟'];
+  for (let i = 0; i < 30; i++) {
+    const s = document.createElement('span');
+    s.className = 'star';
+    s.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+    s.style.left = Math.random() * 100 + '%';
+    s.style.top = Math.random() * 100 + '%';
+    s.style.fontSize = (12 + Math.random() * 18) + 'px';
+    s.style.animationDelay = (Math.random() * 5) + 's';
+    s.style.animationDuration = (2 + Math.random() * 4) + 's';
+    container.appendChild(s);
+  }
+})();
+
+// ==================== Constants ====================
+const CATEGORIES = [
+  { key: 'overall',   name: '総合運',   icon: '🌟', color: '#c8a2f8', bg: 'rgba(200,162,248,0.12)' },
+  { key: 'love',      name: '恋愛運',   icon: '💕', color: '#ff6b9d', bg: 'rgba(255,107,157,0.12)' },
+  { key: 'work',      name: '仕事運',   icon: '💼', color: '#73b4ff', bg: 'rgba(115,180,255,0.12)' },
+  { key: 'money',     name: '金運',     icon: '💰', color: '#ffd166', bg: 'rgba(255,209,102,0.12)' },
+  { key: 'health',    name: '健康運',   icon: '💪', color: '#7dd3c0', bg: 'rgba(125,211,192,0.12)' },
+  { key: 'social',    name: '対人運',   icon: '🤝', color: '#ff8a80', bg: 'rgba(255,138,128,0.12)' },
+  { key: 'study',     name: '学習運',   icon: '📚', color: '#90caf9', bg: 'rgba(144,202,249,0.12)' },
+  { key: 'family',    name: '家庭運',   icon: '🏠', color: '#a5d6a7', bg: 'rgba(165,214,167,0.12)' },
+  { key: 'creative',  name: '創造運',   icon: '🎨', color: '#ce93d8', bg: 'rgba(206,147,216,0.12)' },
+  { key: 'travel',    name: '旅行運',   icon: '✈️', color: '#80deea', bg: 'rgba(128,222,234,0.12)' },
+];
+
+const PERIODS = [
+  { key: 'year', label: '2026年 年間運勢' },
+  { key: 'month', label: '今月の運勢' },
+  { key: 'week', label: '今週の運勢' },
+  { key: 'day', label: '今日の運勢' },
+  { key: 'today_special', label: '✨ 今日限定スペシャル ✨' },
+];
+
+// ==================== Seeded RNG ====================
+function seededRandom(seed) {
+  let s = seed;
+  return function() {
+    s = (s * 16807 + 0) % 2147483647;
+    return (s - 1) / 2147483646;
+  };
+}
+function hashStr(str) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = ((hash << 5) - hash) + str.charCodeAt(i);
+    hash |= 0;
+  }
+  return Math.abs(hash);
+}
+
+// ==================== Fortune Systems ====================
+
+// Western Zodiac
+function getZodiacSign(month, day) {
+  const signs = [
+    { name: '山羊座', symbol: '♑', en: 'Capricorn', start: [1,1], end: [1,19] },
+    { name: '水瓶座', symbol: '♒', en: 'Aquarius', start: [1,20], end: [2,18] },
+    { name: '魚座', symbol: '♓', en: 'Pisces', start: [2,19], end: [3,20] },
+    { name: '牡羊座', symbol: '♈', en: 'Aries', start: [3,21], end: [4,19] },
+    { name: '牡牛座', symbol: '♉', en: 'Taurus', start: [4,20], end: [5,20] },
+    { name: '双子座', symbol: '♊', en: 'Gemini', start: [5,21], end: [6,21] },
+    { name: '蟹座', symbol: '♋', en: 'Cancer', start: [6,22], end: [7,22] },
+    { name: '獅子座', symbol: '♌', en: 'Leo', start: [7,23], end: [8,22] },
+    { name: '乙女座', symbol: '♍', en: 'Virgo', start: [8,23], end: [9,22] },
+    { name: '天秤座', symbol: '♎', en: 'Libra', start: [9,23], end: [10,23] },
+    { name: '蠍座', symbol: '♏', en: 'Scorpio', start: [10,24], end: [11,22] },
+    { name: '射手座', symbol: '♐', en: 'Sagittarius', start: [11,23], end: [12,21] },
+    { name: '山羊座', symbol: '♑', en: 'Capricorn', start: [12,22], end: [12,31] },
+  ];
+  const d = month * 100 + day;
+  for (const s of signs) {
+    const st = s.start[0] * 100 + s.start[1];
+    const en = s.end[0] * 100 + s.end[1];
+    if (d >= st && d <= en) return s;
+  }
+  return signs[0];
+}
+
+// Nine Star Ki (九星気学)
+function getNineStarKi(year) {
+  const stars = [
+    { num: 1, name: '一白水星', element: '水', color: '白' },
+    { num: 2, name: '二黒土星', element: '土', color: '黒' },
+    { num: 3, name: '三碧木星', element: '木', color: '碧' },
+    { num: 4, name: '四緑木星', element: '木', color: '緑' },
+    { num: 5, name: '五黄土星', element: '土', color: '黄' },
+    { num: 6, name: '六白金星', element: '金', color: '白' },
+    { num: 7, name: '七赤金星', element: '金', color: '赤' },
+    { num: 8, name: '八白土星', element: '土', color: '白' },
+    { num: 9, name: '九紫火星', element: '火', color: '紫' },
+  ];
+  // Formula: sum of digits of year, subtract from 11, mod 9
+  let sum = 0;
+  String(year).split('').forEach(d => sum += parseInt(d));
+  while (sum >= 10) {
+    let s2 = 0;
+    String(sum).split('').forEach(d => s2 += parseInt(d));
+    sum = s2;
+  }
+  let idx = (11 - sum) % 9;
+  if (idx <= 0) idx += 9;
+  return stars[idx - 1];
+}
+
+// Four Pillars (四柱推命) - Simplified
+function getFourPillars(year, month, day) {
+  const heavenlyStems = ['甲','乙','丙','丁','戊','己','庚','辛','壬','癸'];
+  const earthlyBranches = ['子','丑','寅','卯','辰','巳','午','未','申','酉','戌','亥'];
+  const yearStem = heavenlyStems[(year - 4) % 10];
+  const yearBranch = earthlyBranches[(year - 4) % 12];
+  const monthStem = heavenlyStems[(year * 12 + month + 3) % 10];
+  const monthBranch = earthlyBranches[(month + 1) % 12];
+  // Day pillar calculation (simplified)
+  const baseDate = new Date(1900, 0, 1);
+  const targetDate = new Date(year, month - 1, day);
+  const diffDays = Math.floor((targetDate - baseDate) / 86400000);
+  const dayStem = heavenlyStems[(diffDays + 9) % 10];
+  const dayBranch = earthlyBranches[(diffDays + 1) % 12];
+
+  return {
+    year: yearStem + yearBranch,
+    month: monthStem + monthBranch,
+    day: dayStem + dayBranch,
+    yearStem, yearBranch, dayStem, dayBranch
+  };
+}
+
+// Animal Fortune (動物占い)
+function getAnimalFortune(year, month, day) {
+  const animals = [
+    { name: 'ペガサス', emoji: '🦄', trait: '自由奔放で直感力に優れる' },
+    { name: 'チーター', emoji: '🐆', trait: '行動力があり目標達成が得意' },
+    { name: 'ライオン', emoji: '🦁', trait: 'リーダーシップと威厳の持ち主' },
+    { name: 'ゾウ', emoji: '🐘', trait: '忍耐力があり着実に成長する' },
+    { name: 'サル', emoji: '🐵', trait: '知性と社交性に富む' },
+    { name: 'オオカミ', emoji: '🐺', trait: '独自の美学と信念を持つ' },
+    { name: 'コアラ', emoji: '🐨', trait: 'マイペースで癒しの存在' },
+    { name: 'トラ', emoji: '🐯', trait: '正義感が強く面倒見が良い' },
+    { name: '黒ヒョウ', emoji: '🐈‍⬛', trait: '感性が鋭くミステリアス' },
+    { name: 'ひつじ', emoji: '🐑', trait: '協調性があり優しい心の持ち主' },
+    { name: 'たぬき', emoji: '🦝', trait: '社交的で場の空気を読む天才' },
+    { name: 'こじか', emoji: '🦌', trait: '純粋で人懐っこい魅力の持ち主' },
+  ];
+  const baseDate = new Date(1900, 0, 1);
+  const targetDate = new Date(year, month - 1, day);
+  const diffDays = Math.floor((targetDate - baseDate) / 86400000);
+  return animals[Math.abs(diffDays) % animals.length];
+}
+
+// Blood Type Fortune
+function getBloodTypeInfo(type) {
+  const info = {
+    'A': { trait: '几帳面で思いやりがある', strength: '計画性と協調性', weakness: '心配性になりがち' },
+    'B': { trait: '自由な発想と行動力', strength: '独創性と集中力', weakness: 'マイペースすぎることも' },
+    'O': { trait: 'おおらかでリーダー気質', strength: '包容力と決断力', weakness: '大雑把になりがち' },
+    'AB': { trait: '理性的で多才', strength: '分析力と適応力', weakness: '二面性を持ちやすい' },
+  };
+  return info[type] || info['A'];
+}
+
+// Numerology (数秘術)
+function getNumerology(year, month, day) {
+  let sum = 0;
+  `${year}${month}${day}`.split('').forEach(d => sum += parseInt(d));
+  while (sum >= 10 && sum !== 11 && sum !== 22 && sum !== 33) {
+    let s2 = 0;
+    String(sum).split('').forEach(d => s2 += parseInt(d));
+    sum = s2;
+  }
+  const meanings = {
+    1: '独立・リーダーシップ',
+    2: '協調・パートナーシップ',
+    3: '表現力・創造性',
+    4: '安定・堅実',
+    5: '変化・冒険',
+    6: '愛情・調和',
+    7: '探求・精神性',
+    8: '豊かさ・パワー',
+    9: '完成・博愛',
+    11: 'マスターナンバー・直感',
+    22: 'マスターナンバー・建設',
+    33: 'マスターナンバー・奉仕',
+  };
+  return { number: sum, meaning: meanings[sum] || '特別な数' };
+}
+
+// Rokuseisennjutsu (六星占術) - Simplified
+function getRokusei(year, month, day) {
+  const types = ['土星人','金星人','火星人','天王星人','木星人','水星人'];
+  const polarity = ['(+)', '(-)'];
+  const baseDate = new Date(1900, 0, 1);
+  const targetDate = new Date(year, month - 1, day);
+  const diffDays = Math.floor((targetDate - baseDate) / 86400000);
+  return types[Math.abs(diffDays) % 6] + polarity[Math.abs(diffDays + year) % 2];
+}
+
+// Chinese Zodiac (十二支)
+function getChineseZodiac(year) {
+  const animals = [
+    { name: '子（ねずみ）', emoji: '🐭' },
+    { name: '丑（うし）', emoji: '🐮' },
+    { name: '寅（とら）', emoji: '🐯' },
+    { name: '卯（うさぎ）', emoji: '🐰' },
+    { name: '辰（たつ）', emoji: '🐲' },
+    { name: '巳（へび）', emoji: '🐍' },
+    { name: '午（うま）', emoji: '🐴' },
+    { name: '未（ひつじ）', emoji: '🐑' },
+    { name: '申（さる）', emoji: '🐵' },
+    { name: '酉（とり）', emoji: '🐔' },
+    { name: '戌（いぬ）', emoji: '🐶' },
+    { name: '亥（いのしし）', emoji: '🐗' },
+  ];
+  return animals[(year - 4) % 12];
+}
+
+// Mikkyo Astrology (密教占星術 - 宿曜占星術 + 九曜星)
+function getMikkyoAstrology(year, month, day) {
+  const mansions = [
+    { name: '昴宿', reading: 'ぼうしゅく', group: '胎', trait: '温和で人望が厚く、芸術的センスに恵まれる' },
+    { name: '畢宿', reading: 'ひっしゅく', group: '栄', trait: '勤勉で堅実。信頼される安定型リーダー' },
+    { name: '觜宿', reading: 'ししゅく', group: '親', trait: '知的好奇心が旺盛で、学問に秀でる' },
+    { name: '参宿', reading: 'しんしゅく', group: '友', trait: '華やかで行動力があり、人を惹きつけるカリスマ性' },
+    { name: '井宿', reading: 'せいしゅく', group: '衰', trait: '計画性に優れ、堅実に目標を達成する実力者' },
+    { name: '鬼宿', reading: 'きしゅく', group: '安', trait: '最も吉祥な宿。創造力と直感に恵まれた天才肌' },
+    { name: '柳宿', reading: 'りゅうしゅく', group: '壊', trait: '忍耐力が強く、逆境に負けないしなやかさを持つ' },
+    { name: '星宿', reading: 'せいしゅく', group: '命', trait: '華やかな魅力とリーダーシップで注目を集める' },
+    { name: '張宿', reading: 'ちょうしゅく', group: '業', trait: '品格があり、芸事や美的分野で才能を発揮する' },
+    { name: '翼宿', reading: 'よくしゅく', group: '胎', trait: '真面目で努力家。地道な積み重ねで大成する' },
+    { name: '軫宿', reading: 'しんしゅく', group: '栄', trait: '思いやりが深く、人の痛みがわかる優しい心の持ち主' },
+    { name: '角宿', reading: 'かくしゅく', group: '親', trait: '社交的で柔軟性があり、どんな環境にも適応できる' },
+    { name: '亢宿', reading: 'こうしゅく', group: '友', trait: '正義感が強く、信念を貫く強い意志の持ち主' },
+    { name: '氐宿', reading: 'ていしゅく', group: '衰', trait: '穏やかだが内に秘めた情熱を持つ。晩年に大成する' },
+    { name: '房宿', reading: 'ぼうしゅく', group: '安', trait: '人を育てる力に長け、周囲から慕われる存在' },
+    { name: '心宿', reading: 'しんしゅく', group: '壊', trait: '鋭い直感と洞察力を持ち、本質を見抜く力がある' },
+    { name: '尾宿', reading: 'びしゅく', group: '命', trait: '集中力と粘り強さで困難を乗り越える不屈の精神' },
+    { name: '箕宿', reading: 'きしゅく', group: '業', trait: '自由を愛し、束縛を嫌う独立心の強い冒険者' },
+    { name: '斗宿', reading: 'としゅく', group: '胎', trait: '目標に向かって着実に歩む堅実さと忍耐力の星' },
+    { name: '女宿', reading: 'じょしゅく', group: '栄', trait: '繊細な感性と強い意志を併せ持つ努力の人' },
+    { name: '虚宿', reading: 'きょしゅく', group: '親', trait: '精神性が高く、哲学的な思考で真理を追究する' },
+    { name: '危宿', reading: 'きしゅく', group: '友', trait: '直感力に優れ、危機をチャンスに変える力を持つ' },
+    { name: '室宿', reading: 'しっしゅく', group: '衰', trait: '強い意志と行動力で、大きな目標を実現する開拓者' },
+    { name: '壁宿', reading: 'へきしゅく', group: '安', trait: '知性と教養に富み、学問や芸術で才能を発揮する' },
+    { name: '奎宿', reading: 'けいしゅく', group: '壊', trait: '多才で器用。あらゆる分野で能力を発揮できる万能型' },
+    { name: '婁宿', reading: 'ろうしゅく', group: '命', trait: '仁徳に厚く、人々をまとめ上げるリーダーの資質' },
+    { name: '胃宿', reading: 'いしゅく', group: '業', trait: '大胆で豪快。強い決断力とリーダーシップの星' },
+  ];
+
+  // Julian Day Number calculation
+  const a = Math.floor((14 - month) / 12);
+  const y = year + 4800 - a;
+  const m = month + 12 * a - 3;
+  const jdn = day + Math.floor((153 * m + 2) / 5) + 365 * y
+              + Math.floor(y / 4) - Math.floor(y / 100) + Math.floor(y / 400) - 32045;
+
+  const mansionIndex = jdn % 27;
+  const mansion = mansions[mansionIndex];
+
+  // Nine Luminaries (九曜星)
+  const luminaries = [
+    { name: '日曜星', body: '太陽', trait: '明るく活動的で、周囲を照らすリーダー', emoji: '☀️' },
+    { name: '月曜星', body: '月', trait: '感受性が豊かで、人の気持ちに寄り添える', emoji: '🌙' },
+    { name: '火曜星', body: '火星', trait: '情熱的で行動力があり、困難に立ち向かう', emoji: '🔥' },
+    { name: '水曜星', body: '水星', trait: '知性と表現力に優れ、コミュニケーション上手', emoji: '💧' },
+    { name: '木曜星', body: '木星', trait: '寛大で包容力があり、人望を集める', emoji: '🌳' },
+    { name: '金曜星', body: '金星', trait: '美的感覚と調和を重んじ、愛に恵まれる', emoji: '✨' },
+    { name: '土曜星', body: '土星', trait: '忍耐力と責任感で着実に人生を築く', emoji: '🪨' },
+    { name: '羅睺星', body: '羅睺', trait: '神秘的な力を秘め、変革をもたらす存在', emoji: '🌑' },
+    { name: '計都星', body: '計都', trait: '直感力と精神性に優れ、見えない世界を感じ取る', emoji: '💫' },
+  ];
+  const luminaryIndex = jdn % 9;
+  const luminary = luminaries[luminaryIndex];
+
+  // Yearly compatibility (栄・親・友・衰・安・壊)
+  const compatGroups = [
+    { name: '栄', meaning: '繁栄と発展の年。積極的に動くと大きな成果が得られる' },
+    { name: '親', meaning: '良縁に恵まれる年。人間関係が幸運を運んでくる' },
+    { name: '友', meaning: '仲間との協力が力になる年。チームワークが鍵' },
+    { name: '衰', meaning: '充電と内省の年。無理せず力を蓄えるとき' },
+    { name: '安', meaning: '安定と調和の年。穏やかに過ごすと運気が上昇' },
+    { name: '壊', meaning: '変化と転機の年。古いものを手放し新しいステージへ' },
+  ];
+  const yearCompat = compatGroups[(mansionIndex + 2026) % 6];
+
+  return { mansion, luminary, yearCompat };
+}
+
+// Kabbalistic Numerology (カバラ数秘術)
+function getKabbalahNumerology(name) {
+  if (!name || name.trim() === '') return null;
+
+  const letterValues = {
+    A:1, B:2, C:3, D:4, E:5, F:6, G:7, H:8, I:9,
+    J:1, K:2, L:3, M:4, N:5, O:6, P:7, Q:8, R:9,
+    S:1, T:2, U:3, V:4, W:5, X:6, Y:7, Z:8
+  };
+  const vowels = new Set(['A','E','I','O','U']);
+
+  function reduceToSingle(num) {
+    while (num > 9 && num !== 11 && num !== 22 && num !== 33) {
+      let sum = 0;
+      String(num).split('').forEach(d => sum += parseInt(d));
+      num = sum;
+    }
+    return num;
+  }
+
+  const cleanName = name.toUpperCase().replace(/[^A-Z]/g, '');
+  if (cleanName.length === 0) return null;
+
+  let fullSum = 0, vowelSum = 0, consonantSum = 0;
+  for (const ch of cleanName) {
+    const val = letterValues[ch] || 0;
+    fullSum += val;
+    if (vowels.has(ch)) vowelSum += val;
+    else consonantSum += val;
+  }
+
+  const expression = reduceToSingle(fullSum);
+  const soulUrge = reduceToSingle(vowelSum);
+  const personality = reduceToSingle(consonantSum);
+
+  const meanings = {
+    1: { keyword: '開拓者', trait: '独立心が強く、リーダーシップを発揮する先駆者' },
+    2: { keyword: '調停者', trait: '協調性に富み、人と人を繋ぐ架け橋となる存在' },
+    3: { keyword: '表現者', trait: '創造力と表現力で周囲を魅了するアーティスト' },
+    4: { keyword: '建設者', trait: '安定と秩序を生み出す堅実な実力者' },
+    5: { keyword: '冒険家', trait: '変化を恐れず、自由を追い求める旅人' },
+    6: { keyword: '奉仕者', trait: '愛と調和で人々を癒し、守る存在' },
+    7: { keyword: '探求者', trait: '深い知性と精神性で真理を追い求める賢者' },
+    8: { keyword: '達成者', trait: '目標に向かって力強く突き進むパワーの持ち主' },
+    9: { keyword: '博愛者', trait: '広い視野と慈愛で世界を照らす人道主義者' },
+    11: { keyword: '霊感者', trait: '直感力に優れ、精神世界と現実を繋ぐマスターナンバー' },
+    22: { keyword: '大建築家', trait: '壮大なビジョンを現実にするマスターナンバー' },
+    33: { keyword: '大教師', trait: '無条件の愛で人々を導く最高のマスターナンバー' },
+  };
+
+  return {
+    expression: { number: expression, ...(meanings[expression] || meanings[9]) },
+    soulUrge: { number: soulUrge, ...(meanings[soulUrge] || meanings[9]) },
+    personality: { number: personality, ...(meanings[personality] || meanings[9]) },
+    nameUsed: cleanName,
+  };
+}
+
+// ==================== Fortune Generation ====================
+
+function generateScore(rng, baseScore) {
+  const variation = Math.floor(rng() * 30) - 10;
+  return Math.max(20, Math.min(100, baseScore + variation));
+}
+
+function generateFortuneText(rng, category, score, period, systems) {
+  const levelTexts = score >= 85 ? 'great' : score >= 65 ? 'good' : score >= 45 ? 'normal' : 'low';
+
+  const texts = {
+    overall: {
+      great: [
+        '運気が最高潮！あなたの魅力が周囲を惹きつけ、何をやっても上手くいく時期です。自信を持って新しいことに挑戦しましょう。',
+        '全体的に素晴らしい運勢です。直感を信じて行動すると、思いがけない幸運が舞い込んできます。積極的に動きましょう。',
+        '星の配置があなたを力強くサポートしています。大胆な決断が良い結果を生む時期。迷ったら前に進みましょう。',
+      ],
+      good: [
+        '安定した良い運気が続きます。コツコツと努力を重ねることで、大きな成果につながるでしょう。焦らず着実に。',
+        '穏やかながらも確実に前進できる時期。周囲との調和を大切にしながら、自分の目標に向かって進みましょう。',
+        '良い流れに乗っています。小さな幸せを見逃さず、感謝の気持ちを持つことで、さらに運気がアップします。',
+      ],
+      normal: [
+        '可もなく不可もなくの時期ですが、地道な努力が後で実を結びます。基礎固めに最適な時。',
+        '平穏な日々が続きますが、内面を磨くチャンスです。自分を見つめ直し、新たな目標を設定しましょう。',
+        '運気は安定しています。無理をせず自然体でいることが、幸運を引き寄せるカギです。',
+      ],
+      low: [
+        '少し停滞気味ですが、これは充電期間です。無理せず休息を取り、次のチャンスに備えましょう。',
+        '試練の時期ですが、ここで得た経験は必ず将来の糧になります。前向きな気持ちを忘れずに。',
+        '運気が低めですが、周囲の人の支えを大切にすれば乗り越えられます。一人で抱え込まないで。',
+      ],
+    },
+    love: {
+      great: [
+        '恋愛運が絶好調！出会いのチャンスが多く、既にパートナーがいる方は関係が深まる時期。素直な気持ちを伝えて。',
+        '魅力が最大限に発揮される時！運命的な出会いの予感。積極的にコミュニケーションを取りましょう。',
+      ],
+      good: [
+        '穏やかな愛情運。相手を思いやる気持ちが、良い関係を築く鍵になります。小さなサプライズが効果的。',
+        '恋愛面で嬉しい変化がありそう。自然体でいることが一番の魅力です。焦らずマイペースに。',
+      ],
+      normal: [
+        '恋愛面では大きな動きは少ないですが、自分磨きに集中することで魅力がアップ。趣味や学びに時間を使って。',
+        '安定期です。今の関係を大切にしながら、相手の良いところを再発見しましょう。',
+      ],
+      low: [
+        'すれ違いが起きやすい時期。焦らず相手の気持ちに寄り添うことが大切です。コミュニケーションを丁寧に。',
+        '恋愛面は控えめですが、自分自身を大切にする期間に。内面を磨けば、良い出会いが自然とやってきます。',
+      ],
+    },
+    work: {
+      great: [
+        '仕事運が絶好調！新しいプロジェクトや提案が認められやすい時期。リーダーシップを発揮しましょう。',
+        'キャリアアップのチャンス到来！自分の能力をアピールする絶好のタイミングです。',
+      ],
+      good: [
+        'チームワークが良く、仕事がスムーズに進む時期。同僚との協力が成功の鍵になります。',
+        '着実にスキルアップできる好調期。新しい知識や技術を学ぶのに最適です。',
+      ],
+      normal: [
+        '仕事面は安定期。日々の業務を丁寧にこなすことで、評価につながります。',
+        'ルーチンワークが中心ですが、小さな改善を積み重ねることで大きな成果に。',
+      ],
+      low: [
+        '仕事面でやや困難に直面しそう。焦らず一つずつ課題をクリアしていきましょう。周囲のサポートを活用して。',
+        'プレッシャーを感じやすい時期。完璧を求めすぎず、できることから確実に進めましょう。',
+      ],
+    },
+    money: {
+      great: [
+        '金運が上昇中！予想外の収入や嬉しい臨時ボーナスの可能性。投資にも良い時期です。',
+        '財運に恵まれる時期。お金の流れが良く、計画的に使えば大きな資産形成につながります。',
+      ],
+      good: [
+        '安定した金運。無駄遣いを避け、計画的に貯蓄すれば着実に資産が増えていきます。',
+        '収支のバランスが取れる良い時期。自己投資にお金を使うのが吉です。',
+      ],
+      normal: [
+        '金運は平均的。大きな出費を避け、堅実な家計管理を心がけましょう。',
+        '可もなく不可もなくの金運。衝動買いに注意し、本当に必要なものを見極めて。',
+      ],
+      low: [
+        '出費がかさみやすい時期。家計の見直しと節約を心がけましょう。投資は控えめに。',
+        '金運が低調。大きな買い物は先延ばしにし、生活の基盤を固めることに集中しましょう。',
+      ],
+    },
+    health: {
+      great: [
+        '健康運が好調！エネルギーに満ちあふれ、新しい運動や健康法を始めるのに最適な時期です。',
+        '心身ともに充実しています。この好調を維持するために、規則正しい生活リズムを続けましょう。',
+      ],
+      good: [
+        '健康面は安定しています。適度な運動と良質な睡眠を心がければ、さらに体調がアップします。',
+        'バランスの良い健康運。食事と運動のバランスを意識して、体調管理を続けましょう。',
+      ],
+      normal: [
+        '健康面は平穏。無理をしなければ問題ないでしょう。定期的なストレッチがおすすめ。',
+        '特に大きな問題はありませんが、疲れが溜まりやすい時期。休息をしっかり取りましょう。',
+      ],
+      low: [
+        '体調を崩しやすい時期。睡眠時間の確保と栄養バランスの良い食事を特に意識してください。',
+        'ストレスが体に出やすい時期。リラックスタイムを意識的に作り、自分を労わりましょう。',
+      ],
+    },
+    social: {
+      great: [
+        '対人運が最高！新しい出会いや人脈拡大のチャンス。社交的に振る舞うことで幸運を呼び込めます。',
+        '人間関係が円滑で、協力者が現れやすい時期。感謝の気持ちを伝えることを忘れずに。',
+      ],
+      good: [
+        '良好な人間関係が築ける時期。誠実な態度が信頼につながります。相手の話をよく聞きましょう。',
+        '周囲とのコミュニケーションが活発に。相手の立場に立って考えることで、より深い絆が生まれます。',
+      ],
+      normal: [
+        '対人関係は穏やかに推移。無理に人付き合いを広げず、今ある関係を大切にしましょう。',
+        '特に問題はありませんが、少し一人の時間も大切に。リフレッシュしてから人に会うのが吉。',
+      ],
+      low: [
+        '人間関係でやや摩擦が生じやすい時期。言葉選びに注意し、相手を尊重する姿勢を忘れずに。',
+        '対人面は控えめに。無理な付き合いは避け、本当に大切な人との関係を優先しましょう。',
+      ],
+    },
+    study: {
+      great: [
+        '学習運が絶好調！集中力と記憶力が冴え、新しいことを吸収するのに最適。資格取得にチャレンジを。',
+        '知的好奇心が高まり、学びの成果が出やすい時期。興味のある分野にどんどん挑戦しましょう。',
+      ],
+      good: [
+        '着実に知識を身につけられる良い時期。計画的に学習を進めれば大きな成長につながります。',
+        '学びへのモチベーションが安定しています。毎日少しずつでも勉強を続ける習慣が成果を生みます。',
+      ],
+      normal: [
+        '学習面は平穏。復習や基礎固めに力を入れると良いでしょう。焦らずマイペースで。',
+        '大きな飛躍は期待しにくいですが、地道な努力が後で活きてきます。今は種まきの時期です。',
+      ],
+      low: [
+        '集中力が散漫になりがち。学習環境を整え、短時間でも集中できる時間を作りましょう。',
+        '学習のモチベーションが低下しがちな時期。好きな分野から取り組み直してみましょう。',
+      ],
+    },
+    family: {
+      great: [
+        '家庭運が最高潮！家族との絆が深まり、温かい時間を過ごせます。家族イベントを企画するのも吉。',
+        '家庭内の雰囲気が和やかで、お互いを思いやる気持ちが通じ合う時期。感謝を言葉にして。',
+      ],
+      good: [
+        '家庭運は安定。日常の些細なことに幸せを感じられる良い時期。一緒に食事を楽しみましょう。',
+        '家族との関係が良好。相手の良いところを見つけて褒めると、さらに関係が良くなります。',
+      ],
+      normal: [
+        '家庭面は平穏に過ごせます。マンネリを感じたら、ちょっとした変化を取り入れてみて。',
+        '特に問題はないですが、家族とのコミュニケーション時間を意識的に作ると良いでしょう。',
+      ],
+      low: [
+        '家庭内ですれ違いが起きやすい時期。相手の話をよく聞き、自分の気持ちも素直に伝えましょう。',
+        '家族に対して気を遣いすぎてストレスが溜まりがち。適度な距離感を保つことも大切です。',
+      ],
+    },
+    creative: {
+      great: [
+        '創造力が爆発する時期！芸術やクリエイティブな活動で才能が開花します。直感に従って行動を。',
+        'インスピレーションに恵まれ、素晴らしいアイデアが次々と浮かぶ時期。形にすることを忘れずに。',
+      ],
+      good: [
+        '創造性が高まっています。趣味や芸術活動に時間を使うと、思いがけない発見があるかも。',
+        '良いアイデアが浮かびやすい時期。メモを取る習慣をつけて、ひらめきを逃さないようにしましょう。',
+      ],
+      normal: [
+        '創造面は安定期。既存のアイデアを磨き上げるのに向いています。質を高めることに集中して。',
+        'クリエイティブな活動は無理せずマイペースで。インプットを増やすことで、次のひらめきの土台に。',
+      ],
+      low: [
+        'アイデアが出にくいと感じても焦らないで。この時期の経験が、後の大きなクリエイティブにつながります。',
+        '創造力が低めですが、他の人の作品に触れることで刺激を受けられます。美術館や映画がおすすめ。',
+      ],
+    },
+    travel: {
+      great: [
+        '旅行運が最高！新しい場所での素晴らしい体験が待っています。長距離の旅行が特に吉。',
+        '冒険心が高まる時期。行ったことのない場所へ足を運ぶと、人生を変える出会いがあるかも。',
+      ],
+      good: [
+        '旅行運が好調。週末の小旅行でリフレッシュするのがおすすめ。温泉や自然の中でリラックスして。',
+        'お出かけに良い運気。友人との旅行を計画すると、楽しい思い出ができるでしょう。',
+      ],
+      normal: [
+        '旅行は近場がおすすめ。身近な場所にも新しい発見があります。散歩やドライブを楽しんで。',
+        '旅行面は安定。無理な計画は避け、ゆったりとした旅程を心がけましょう。',
+      ],
+      low: [
+        '旅行はトラブルに注意が必要な時期。しっかり準備をして、余裕を持ったスケジュールで。',
+        '遠出よりも近場でのリフレッシュがおすすめ。自宅で旅行気分を味わうのも良いでしょう。',
+      ],
+    },
+  };
+
+  const categoryTexts = texts[category] || texts['overall'];
+  const levelArr = categoryTexts[levelTexts] || categoryTexts['normal'];
+  return levelArr[Math.floor(rng() * levelArr.length)];
+}
+
+// Lucky items, colors, actions
+function generateLucky(rng, systems) {
+  const colors = [
+    { name: 'ローズピンク', hex: '#FF69B4' },
+    { name: 'ラベンダー', hex: '#B57EDC' },
+    { name: 'ミントグリーン', hex: '#98FB98' },
+    { name: 'スカイブルー', hex: '#87CEEB' },
+    { name: 'ゴールド', hex: '#FFD700' },
+    { name: 'コーラルオレンジ', hex: '#FF7F50' },
+    { name: 'アイボリー', hex: '#FFFFF0' },
+    { name: 'シルバー', hex: '#C0C0C0' },
+    { name: 'ターコイズ', hex: '#40E0D0' },
+    { name: 'ワインレッド', hex: '#722F37' },
+    { name: 'ネイビーブルー', hex: '#000080' },
+    { name: 'パステルイエロー', hex: '#FDFD96' },
+    { name: 'チェリーレッド', hex: '#DE3163' },
+    { name: 'オリーブグリーン', hex: '#808000' },
+    { name: 'ライラック', hex: '#C8A2C8' },
+  ];
+  const items = [
+    '天然石のブレスレット', 'お気に入りのマグカップ', '手書きの手紙', '四つ葉のクローバーグッズ',
+    '星柄のアクセサリー', '月のモチーフ', '猫グッズ', 'クリスタル', 'お守り袋', 'フラワーモチーフのハンカチ',
+    '真珠のアクセサリー', '革製の小物', '木製のペン', 'シルクのスカーフ', 'アロマキャンドル',
+    'ブックマーク', 'ヴィンテージの時計', 'ガラスの花瓶', '和柄の小物', 'ミニ観葉植物',
+  ];
+  const actions = [
+    '朝日を浴びながらストレッチをする', '感謝の気持ちを3つ書き出す', '好きな音楽を聴きながら散歩',
+    '新しいカフェでお茶をする', '部屋の模様替えをする', '友人に連絡を取る', '早起きして朝活をする',
+    '日記をつける', '花を買って飾る', 'お気に入りのスイーツを楽しむ', '美術館や博物館に行く',
+    '温泉でリフレッシュ', '読書の時間を作る', '料理に挑戦する', '瞑想やヨガをする',
+    '夕日を見に行く', '手作りのプレゼントを作る', '古い写真を見返す', '植物の手入れをする',
+  ];
+  const directions = ['北', '北東', '東', '南東', '南', '南西', '西', '北西'];
+  const numbers = [];
+  for (let i = 0; i < 3; i++) numbers.push(Math.floor(rng() * 99) + 1);
+  const foods = [
+    '和風パスタ', 'グリーンサラダ', 'いちごのスイーツ', 'シーフードカレー', '抹茶ラテ',
+    'チーズケーキ', 'カプレーゼ', 'お蕎麦', 'フルーツタルト', 'おにぎり',
+    'ホットチョコレート', 'かぼちゃスープ', '焼き鳥', 'マカロン', 'お味噌汁',
+  ];
+
+  const c1 = colors[Math.floor(rng() * colors.length)];
+  let c2 = colors[Math.floor(rng() * colors.length)];
+  while (c2.name === c1.name) c2 = colors[Math.floor(rng() * colors.length)];
+
+  return {
+    color1: c1,
+    color2: c2,
+    item: items[Math.floor(rng() * items.length)],
+    action: actions[Math.floor(rng() * actions.length)],
+    direction: directions[Math.floor(rng() * directions.length)],
+    numbers: numbers.sort((a, b) => a - b),
+    food: foods[Math.floor(rng() * foods.length)],
+  };
+}
+
+// Generate advice
+function generateAdvice(rng, systems, lucky, scores) {
+  const zodiacAdvice = {
+    '牡羊座': '持ち前の行動力を活かして、新しいことに挑戦する年になります',
+    '牡牛座': '安定志向のあなたにとって、着実に成果を積み上げられる時期です',
+    '双子座': 'コミュニケーション能力が活きる年。人脈が宝になります',
+    '蟹座': '家庭や身近な人との絆が深まる温かい年になるでしょう',
+    '獅子座': 'リーダーシップを発揮できる場面が増え、注目を集める年です',
+    '乙女座': '細やかな気配りと分析力が評価される年。実力が認められます',
+    '天秤座': 'バランス感覚が冴え、人間関係の調和役として活躍する年です',
+    '蠍座': '深い洞察力が冴え渡り、物事の本質を見抜ける年になります',
+    '射手座': '冒険心が高まり、新しい世界が広がる刺激的な年です',
+    '山羊座': '努力が報われ、目標達成に向けて大きく前進できる年です',
+    '水瓶座': '独創的なアイデアが輝き、個性が際立つ年になります',
+    '魚座': '直感力と感受性が高まり、芸術面で才能が開花する年です',
+  };
+
+  const baseAdvice = zodiacAdvice[systems.zodiac.name] || '素晴らしい年になるでしょう';
+
+  const bestCategory = Object.entries(scores).sort(([,a], [,b]) => b - a)[0];
+  const bestCatInfo = CATEGORIES.find(c => c.key === bestCategory[0]);
+
+  const adviceTexts = [
+    `${systems.zodiac.symbol} ${systems.zodiac.name}のあなたは、${baseAdvice}。`,
+    `${systems.nineStar.name}の影響で${systems.nineStar.element}のエネルギーが高まっています。`,
+    `動物占いでは${systems.animal.emoji}${systems.animal.name}タイプ。${systems.animal.trait}性質が2026年はさらに輝きます。`,
+    `密教占星術では${systems.mikkyo.mansion.name}の宿。${systems.mikkyo.luminary.emoji}${systems.mikkyo.luminary.name}の加護が2026年のあなたを見守ります。`,
+    systems.kabbalah ? `カバラ数秘術の運命数${systems.kabbalah.expression.number}「${systems.kabbalah.expression.keyword}」のエネルギーが、あなたの行動を後押しします。` : '',
+    `\n今の時期は特に「${bestCatInfo ? bestCatInfo.name : '総合運'}」が好調。この分野に注力すると、大きな成果が期待できます。`,
+    `\nラッキーカラーの${lucky.color1.name}を身につけ、${lucky.direction}の方角を意識すると運気がさらにアップ！`,
+    `今日のおすすめアクション：「${lucky.action}」`,
+  ];
+
+  return adviceTexts.join('');
+}
+
+// ==================== Radar Chart ====================
+function drawRadarChart(canvas, scores) {
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width;
+  const h = canvas.height;
+  const cx = w / 2;
+  const cy = h / 2;
+  const r = Math.min(w, h) / 2 - 50;
+  const n = CATEGORIES.length;
+
+  ctx.clearRect(0, 0, w, h);
+
+  // Draw grid
+  for (let level = 1; level <= 5; level++) {
+    const lr = r * level / 5;
+    ctx.beginPath();
+    for (let i = 0; i <= n; i++) {
+      const angle = (Math.PI * 2 * i / n) - Math.PI / 2;
+      const x = cx + lr * Math.cos(angle);
+      const y = cy + lr * Math.sin(angle);
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    }
+    ctx.strokeStyle = 'rgba(200,162,248,0.2)';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+  }
+
+  // Draw axes
+  for (let i = 0; i < n; i++) {
+    const angle = (Math.PI * 2 * i / n) - Math.PI / 2;
+    ctx.beginPath();
+    ctx.moveTo(cx, cy);
+    ctx.lineTo(cx + r * Math.cos(angle), cy + r * Math.sin(angle));
+    ctx.strokeStyle = 'rgba(200,162,248,0.15)';
+    ctx.stroke();
+  }
+
+  // Draw data
+  const grad = ctx.createLinearGradient(cx - r, cy - r, cx + r, cy + r);
+  grad.addColorStop(0, 'rgba(255,107,157,0.3)');
+  grad.addColorStop(0.5, 'rgba(200,162,248,0.3)');
+  grad.addColorStop(1, 'rgba(125,211,192,0.3)');
+
+  ctx.beginPath();
+  CATEGORIES.forEach((cat, i) => {
+    const score = scores[cat.key] || 50;
+    const angle = (Math.PI * 2 * i / n) - Math.PI / 2;
+    const dr = r * score / 100;
+    const x = cx + dr * Math.cos(angle);
+    const y = cy + dr * Math.sin(angle);
+    if (i === 0) ctx.moveTo(x, y);
+    else ctx.lineTo(x, y);
+  });
+  ctx.closePath();
+  ctx.fillStyle = grad;
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(200,162,248,0.8)';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  // Draw dots and labels
+  CATEGORIES.forEach((cat, i) => {
+    const score = scores[cat.key] || 50;
+    const angle = (Math.PI * 2 * i / n) - Math.PI / 2;
+    const dr = r * score / 100;
+    const x = cx + dr * Math.cos(angle);
+    const y = cy + dr * Math.sin(angle);
+
+    // Dot
+    ctx.beginPath();
+    ctx.arc(x, y, 5, 0, Math.PI * 2);
+    ctx.fillStyle = cat.color;
+    ctx.fill();
+    ctx.strokeStyle = 'white';
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // Label
+    const lx = cx + (r + 30) * Math.cos(angle);
+    const ly = cy + (r + 30) * Math.sin(angle);
+    ctx.fillStyle = '#4a3860';
+    ctx.font = '12px "Zen Maru Gothic", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(`${cat.icon}${cat.name}`, lx, ly);
+  });
+}
+
+// ==================== Main Logic ====================
+let currentData = null;
+
+function startFortune() {
+  const birthdayEl = document.getElementById('birthday');
+  const bloodTypeEl = document.getElementById('bloodType');
+  const genderEl = document.getElementById('gender');
+
+  if (!birthdayEl.value) {
+    alert('生年月日を入力してください');
+    return;
+  }
+
+  const [year, month, day] = birthdayEl.value.split('-').map(Number);
+  const bloodType = bloodTypeEl.value;
+  const gender = genderEl.value;
+  const nameRomaji = document.getElementById('nameRomaji').value.trim();
+
+  // Calculate all systems
+  const zodiac = getZodiacSign(month, day);
+  const nineStar = getNineStarKi(year);
+  const fourPillars = getFourPillars(year, month, day);
+  const animal = getAnimalFortune(year, month, day);
+  const bloodInfo = getBloodTypeInfo(bloodType);
+  const numerology = getNumerology(year, month, day);
+  const rokusei = getRokusei(year, month, day);
+  const chineseZodiac = getChineseZodiac(year);
+  const mikkyo = getMikkyoAstrology(year, month, day);
+  const kabbalah = getKabbalahNumerology(nameRomaji);
+
+  const systems = {
+    zodiac, nineStar, fourPillars, animal, bloodType, bloodInfo, numerology, rokusei, chineseZodiac, mikkyo, kabbalah
+  };
+
+  // Show loading
+  document.getElementById('inputCard').style.display = 'none';
+  document.getElementById('loading').classList.add('active');
+
+  setTimeout(() => {
+    document.getElementById('loading').classList.remove('active');
+    showResults(year, month, day, bloodType, gender, systems);
+  }, 2500);
+}
+
+function showResults(year, month, day, bloodType, gender, systems) {
+  const results = document.getElementById('results');
+  results.classList.add('active');
+
+  // Profile card
+  renderProfile(systems, bloodType, gender);
+
+  // Generate and show fortunes for all periods
+  const now = new Date();
+  const periodData = {};
+
+  PERIODS.forEach(period => {
+    let seedExtra = '';
+    if (period.key === 'year') seedExtra = '2026';
+    else if (period.key === 'month') seedExtra = `2026-${now.getMonth() + 1}`;
+    else if (period.key === 'week') seedExtra = `2026-W${getWeekNumber(now)}`;
+    else if (period.key === 'day') seedExtra = `2026-${now.getMonth()+1}-${now.getDate()}`;
+    else seedExtra = `2026-${now.getMonth()+1}-${now.getDate()}-special`;
+
+    const seed = hashStr(`${year}-${month}-${day}-${bloodType}-${period.key}-${seedExtra}`);
+    const rng = seededRandom(seed);
+
+    // Base scores influenced by systems
+    const zodiacBonus = hashStr(systems.zodiac.name + seedExtra) % 15;
+    const nineStarBonus = hashStr(systems.nineStar.name + seedExtra) % 12;
+    const animalBonus = hashStr(systems.animal.name + seedExtra) % 10;
+    const mikkyoBonus = hashStr(systems.mikkyo.mansion.name + seedExtra) % 10;
+    const kabbalahBonus = systems.kabbalah ? hashStr(String(systems.kabbalah.expression.number) + seedExtra) % 8 : 0;
+    const baseScore = 50 + (zodiacBonus + nineStarBonus + animalBonus + mikkyoBonus + kabbalahBonus) / 5;
+
+    const scores = {};
+    const texts = {};
+    CATEGORIES.forEach(cat => {
+      const catSeed = hashStr(`${cat.key}-${seedExtra}-${year}${month}${day}`);
+      const catRng = seededRandom(catSeed);
+      scores[cat.key] = generateScore(catRng, baseScore + Math.floor(rng() * 15) - 7);
+      texts[cat.key] = generateFortuneText(catRng, cat.key, scores[cat.key], period.key, systems);
+    });
+
+    const luckySeed = hashStr(`lucky-${seedExtra}-${year}${month}${day}`);
+    const luckyRng = seededRandom(luckySeed);
+    const lucky = generateLucky(luckyRng, systems);
+
+    const adviceSeed = hashStr(`advice-${seedExtra}-${year}${month}${day}`);
+    const adviceRng = seededRandom(adviceSeed);
+    const advice = generateAdvice(adviceRng, systems, lucky, scores);
+
+    periodData[period.key] = { scores, texts, lucky, advice };
+  });
+
+  currentData = { systems, periodData };
+
+  // Render period panels
+  renderPeriodPanels(periodData, systems);
+
+  // Render systems detail
+  renderSystems(systems);
+
+  // Draw radar chart for active period
+  const activeScores = periodData['year'].scores;
+  drawRadarChart(document.getElementById('radarChart'), activeScores);
+
+  // Tab switching
+  document.querySelectorAll('.period-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.period-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const period = tab.dataset.period;
+      document.querySelectorAll('.period-panel').forEach(p => p.classList.remove('active'));
+      document.getElementById(`panel-${period}`).classList.add('active');
+      drawRadarChart(document.getElementById('radarChart'), periodData[period].scores);
+    });
+  });
+
+  results.scrollIntoView({ behavior: 'smooth' });
+}
+
+function renderProfile(systems, bloodType, gender) {
+  const card = document.getElementById('profileCard');
+  const genderLabel = gender === 'female' ? '♀ 女性' : gender === 'male' ? '♂ 男性' : '⚧ その他';
+  card.innerHTML = `
+    <h2>🌸 あなたのプロフィール 🌸</h2>
+    <div class="profile-badges">
+      <span class="badge badge-pink">${systems.zodiac.symbol} ${systems.zodiac.name}</span>
+      <span class="badge badge-lavender">🔯 ${systems.nineStar.name}</span>
+      <span class="badge badge-mint">${systems.animal.emoji} ${systems.animal.name}</span>
+      <span class="badge badge-yellow">🩸 ${bloodType}型</span>
+      <span class="badge badge-blue">${systems.chineseZodiac.emoji} ${systems.chineseZodiac.name}</span>
+      <span class="badge badge-pink">🔢 数秘${systems.numerology.number}</span>
+      <span class="badge badge-lavender">⭐ ${systems.rokusei}</span>
+      <span class="badge badge-mint">🏷️ ${systems.fourPillars.day}日柱</span>
+      <span class="badge badge-gold">☸️ ${systems.mikkyo.mansion.name}</span>
+      <span class="badge badge-purple">${systems.mikkyo.luminary.emoji} ${systems.mikkyo.luminary.name}</span>
+      ${systems.kabbalah ? `<span class="badge badge-pink">🕎 カバラ${systems.kabbalah.expression.number}</span>` : ''}
+    </div>
+  `;
+}
+
+function renderPeriodPanels(periodData, systems) {
+  const container = document.getElementById('periodPanels');
+  container.innerHTML = '';
+
+  PERIODS.forEach((period, pi) => {
+    const data = periodData[period.key];
+    const panel = document.createElement('div');
+    panel.className = `period-panel ${pi === 0 ? 'active' : ''}`;
+    panel.id = `panel-${period.key}`;
+
+    // Fortune cards
+    let cardsHTML = '<div class="fortune-grid">';
+    CATEGORIES.forEach(cat => {
+      const score = data.scores[cat.key];
+      const text = data.texts[cat.key];
+      const stars = getStars(score);
+      const barColor = getBarGradient(score);
+
+      cardsHTML += `
+        <div class="fortune-card">
+          <div class="fortune-card-header">
+            <div class="fortune-icon" style="background:${cat.bg}">${cat.icon}</div>
+            <h3>${cat.name}</h3>
+          </div>
+          <div class="score-section">
+            <div class="score-label">
+              <span class="score-stars">${stars}</span>
+              <span class="score-num" style="color:${cat.color}">${score}点</span>
+            </div>
+            <div class="score-bar-bg">
+              <div class="score-bar-fill" style="width:${score}%;background:${barColor}"></div>
+            </div>
+          </div>
+          <p class="fortune-text">${text}</p>
+        </div>
+      `;
+    });
+    cardsHTML += '</div>';
+
+    // Lucky section
+    const lucky = data.lucky;
+    const luckyHTML = `
+      <div class="lucky-card fade-in">
+        <h2>🍀 ラッキーポイント 🍀</h2>
+        <div class="lucky-grid">
+          <div class="lucky-item">
+            <span class="lucky-emoji">🎨</span>
+            <div class="lucky-label">ラッキーカラー1</div>
+            <div class="lucky-value"><span class="color-swatch" style="background:${lucky.color1.hex}"></span>${lucky.color1.name}</div>
+          </div>
+          <div class="lucky-item">
+            <span class="lucky-emoji">🌈</span>
+            <div class="lucky-label">ラッキーカラー2</div>
+            <div class="lucky-value"><span class="color-swatch" style="background:${lucky.color2.hex}"></span>${lucky.color2.name}</div>
+          </div>
+          <div class="lucky-item">
+            <span class="lucky-emoji">💎</span>
+            <div class="lucky-label">ラッキーアイテム</div>
+            <div class="lucky-value">${lucky.item}</div>
+          </div>
+          <div class="lucky-item">
+            <span class="lucky-emoji">🧭</span>
+            <div class="lucky-label">ラッキー方角</div>
+            <div class="lucky-value">${lucky.direction}</div>
+          </div>
+          <div class="lucky-item">
+            <span class="lucky-emoji">🔢</span>
+            <div class="lucky-label">ラッキーナンバー</div>
+            <div class="lucky-value">${lucky.numbers.join(', ')}</div>
+          </div>
+          <div class="lucky-item">
+            <span class="lucky-emoji">🍽️</span>
+            <div class="lucky-label">ラッキーフード</div>
+            <div class="lucky-value">${lucky.food}</div>
+          </div>
+        </div>
+      </div>
+    `;
+
+    // Advice
+    const adviceHTML = `
+      <div class="advice-card fade-in">
+        <h2>💫 ワンポイントアドバイス 💫</h2>
+        <p class="advice-text">${data.advice}</p>
+      </div>
+    `;
+
+    panel.innerHTML = `<h2 style="text-align:center;margin-bottom:20px;color:var(--lavender);font-size:1.2rem;">${period.label}</h2>` + cardsHTML + luckyHTML + adviceHTML;
+    container.appendChild(panel);
+  });
+}
+
+function renderSystems(systems) {
+  const card = document.getElementById('systemsCard');
+  card.innerHTML = `
+    <h2>📖 あなたの占い詳細データ 📖</h2>
+    <div class="system-item">
+      <h4>${systems.zodiac.symbol} 西洋占星術</h4>
+      <p>星座：${systems.zodiac.name}（${systems.zodiac.en}）</p>
+    </div>
+    <div class="system-item">
+      <h4>🔯 九星気学</h4>
+      <p>${systems.nineStar.name} ／ 五行：${systems.nineStar.element}</p>
+    </div>
+    <div class="system-item">
+      <h4>📜 四柱推命</h4>
+      <p>年柱：${systems.fourPillars.year} ／ 月柱：${systems.fourPillars.month} ／ 日柱：${systems.fourPillars.day}</p>
+    </div>
+    <div class="system-item">
+      <h4>${systems.animal.emoji} 動物占い</h4>
+      <p>${systems.animal.name}タイプ — ${systems.animal.trait}</p>
+    </div>
+    <div class="system-item">
+      <h4>${systems.chineseZodiac.emoji} 十二支</h4>
+      <p>${systems.chineseZodiac.name}</p>
+    </div>
+    <div class="system-item">
+      <h4>🩸 血液型占い</h4>
+      <p>${systems.bloodType}型 — ${systems.bloodInfo.trait}（強み：${systems.bloodInfo.strength}）</p>
+    </div>
+    <div class="system-item">
+      <h4>🔢 数秘術</h4>
+      <p>ライフパスナンバー：${systems.numerology.number}（${systems.numerology.meaning}）</p>
+    </div>
+    <div class="system-item">
+      <h4>⭐ 六星占術</h4>
+      <p>${systems.rokusei}</p>
+    </div>
+    <div class="system-item">
+      <h4>☸️ 密教占星術（宿曜）</h4>
+      <p>宿：${systems.mikkyo.mansion.name}（${systems.mikkyo.mansion.reading}）— ${systems.mikkyo.mansion.trait}</p>
+      <p>九曜星：${systems.mikkyo.luminary.emoji} ${systems.mikkyo.luminary.name}（${systems.mikkyo.luminary.body}）— ${systems.mikkyo.luminary.trait}</p>
+      <p>2026年の宿曜運：「${systems.mikkyo.yearCompat.name}」— ${systems.mikkyo.yearCompat.meaning}</p>
+    </div>
+    ${systems.kabbalah ? `
+    <div class="system-item">
+      <h4>🕎 カバラ数秘術</h4>
+      <p>運命数（Expression）：${systems.kabbalah.expression.number}「${systems.kabbalah.expression.keyword}」— ${systems.kabbalah.expression.trait}</p>
+      <p>魂の衝動数（Soul Urge）：${systems.kabbalah.soulUrge.number}「${systems.kabbalah.soulUrge.keyword}」— ${systems.kabbalah.soulUrge.trait}</p>
+      <p>人格数（Personality）：${systems.kabbalah.personality.number}「${systems.kabbalah.personality.keyword}」— ${systems.kabbalah.personality.trait}</p>
+    </div>
+    ` : ''}
+  `;
+}
+
+function getStars(score) {
+  const full = Math.floor(score / 20);
+  const half = score % 20 >= 10 ? 1 : 0;
+  const empty = 5 - full - half;
+  return '★'.repeat(full) + (half ? '☆' : '') + '☆'.repeat(Math.max(0, empty - (half ? 0 : 0)));
+}
+
+function getBarGradient(score) {
+  if (score >= 80) return 'linear-gradient(90deg, #ff6b9d, #c8a2f8)';
+  if (score >= 60) return 'linear-gradient(90deg, #7dd3c0, #73b4ff)';
+  if (score >= 40) return 'linear-gradient(90deg, #ffd166, #ff8a80)';
+  return 'linear-gradient(90deg, #90a4ae, #b0bec5)';
+}
+
+function getWeekNumber(date) {
+  const start = new Date(date.getFullYear(), 0, 1);
+  const diff = (date - start + (start.getTimezoneOffset() - date.getTimezoneOffset()) * 60000) / 86400000;
+  return Math.ceil((diff + start.getDay() + 1) / 7);
+}
+
+function resetForm() {
+  document.getElementById('results').classList.remove('active');
+  document.getElementById('inputCard').style.display = 'block';
+  document.getElementById('quickFortune').style.display = 'block';
+  history.replaceState(null, '', location.pathname);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ==================== Star Particle Animation ====================
+function createParticles() {
+  const container = document.createElement('div');
+  container.className = 'particle-container';
+  document.body.appendChild(container);
+  const emojis = ['✨','⭐','🌟','💫','✦','🔮','⋆','✵','💜','💖'];
+  for (let i = 0; i < 40; i++) {
+    const p = document.createElement('span');
+    p.className = 'particle';
+    p.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    p.style.left = Math.random() * 100 + '%';
+    p.style.fontSize = (14 + Math.random() * 22) + 'px';
+    p.style.animationDuration = (1.5 + Math.random() * 2.5) + 's';
+    p.style.animationDelay = (Math.random() * 1.5) + 's';
+    container.appendChild(p);
+  }
+  setTimeout(() => container.remove(), 5000);
+}
+
+// ==================== Card Flip Animation ====================
+function applyCardFlip() {
+  const cards = document.querySelectorAll('.fortune-card');
+  cards.forEach((card, i) => {
+    card.style.opacity = '0';
+    setTimeout(() => {
+      card.classList.add('flip-in');
+      card.style.opacity = '';
+    }, i * 100);
+  });
+}
+
+// ==================== Patch startFortune for animations & permalink ====================
+const _originalStartFortune = startFortune;
+startFortune = function() {
+  createParticles();
+  _originalStartFortune();
+
+  // Update URL with permalink params
+  const birthday = document.getElementById('birthday').value;
+  const blood = document.getElementById('bloodType').value;
+  const gender = document.getElementById('gender').value;
+  const name = document.getElementById('nameRomaji').value.trim();
+  const sex = gender === 'female' ? 'F' : gender === 'male' ? 'M' : 'O';
+  const params = new URLSearchParams({ birth: birthday.replace(/-/g, ''), blood, sex });
+  if (name) params.set('name', name);
+  history.replaceState(null, '', '?' + params.toString());
+
+  // Hide quick fortune
+  document.getElementById('quickFortune').style.display = 'none';
+
+  // Apply card flip after results render
+  setTimeout(applyCardFlip, 2600);
+};
+
+// ==================== Patch showResults to store data for share ====================
+const _originalShowResults = showResults;
+showResults = function(year, month, day, bloodType, gender, systems) {
+  _originalShowResults(year, month, day, bloodType, gender, systems);
+  // Store for share
+  window._shareData = { systems, year, month, day, bloodType };
+};
+
+// ==================== SNS Share (X/Twitter) ====================
+function shareOnX() {
+  const data = window._shareData;
+  if (!data) return;
+
+  const overall = currentData?.periodData?.year?.scores?.overall || '??';
+  const lucky = currentData?.periodData?.year?.lucky;
+  const luckyColor = lucky?.color1?.name || '???';
+  const zodiacName = data.systems.zodiac.name;
+  const mansionName = data.systems.mikkyo.mansion.name;
+
+  const text = `🔮 2026年の私の運勢は総合${overall}点！\n` +
+    `${data.systems.zodiac.symbol} ${zodiacName} × ☸️${mansionName}\n` +
+    `ラッキーカラーは${luckyColor} 🎨\n\n` +
+    `#2026占い #運勢 #総合占い`;
+
+  const url = location.href;
+  const tweetUrl = `https://x.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+  window.open(tweetUrl, '_blank', 'width=550,height=420');
+}
+
+// ==================== Quick Fortune (30秒占い) ====================
+function quickFortune() {
+  const birthdayEl = document.getElementById('quickBirthday');
+  if (!birthdayEl.value) { alert('生年月日を入力してください'); return; }
+
+  const [year, month, day] = birthdayEl.value.split('-').map(Number);
+  const now = new Date();
+  const seedStr = `quick-${year}-${month}-${day}-${now.getFullYear()}-${now.getMonth()+1}-${now.getDate()}`;
+  const seed = hashStr(seedStr);
+  const rng = seededRandom(seed);
+
+  const zodiac = getZodiacSign(month, day);
+  const nineStar = getNineStarKi(year);
+  const mikkyo = getMikkyoAstrology(year, month, day);
+
+  // Today score
+  const score = 40 + Math.floor(rng() * 61);
+  const level = score >= 85 ? '大吉' : score >= 70 ? '吉' : score >= 55 ? '中吉' : score >= 40 ? '小吉' : '末吉';
+
+  // Lucky color
+  const colors = [
+    {name:'ローズピンク',hex:'#ff6b9d'},{name:'ラベンダー',hex:'#c8a2f8'},{name:'ミントグリーン',hex:'#7dd3c0'},
+    {name:'パステルイエロー',hex:'#ffd166'},{name:'スカイブルー',hex:'#73b4ff'},{name:'コーラル',hex:'#ff8a80'},
+    {name:'ゴールド',hex:'#ffc107'},{name:'シルバー',hex:'#90a4ae'},{name:'エメラルド',hex:'#2ecc71'},
+  ];
+  const luckyColor = colors[Math.floor(rng() * colors.length)];
+  const luckyNum = Math.floor(rng() * 99) + 1;
+
+  // Fortune text
+  const texts = [
+    '新しい出会いが運気を上げてくれる日。積極的に人と関わりましょう。',
+    '直感が冴えている日。ピンときたことには迷わず行動を。',
+    'コツコツ積み重ねた努力が報われるタイミング。自信を持って。',
+    '意外な場所にチャンスが隠れています。いつもと違う道を歩いてみて。',
+    '人に優しくすると、巡り巡って自分に返ってくる日。笑顔がラッキーの鍵。',
+    '創造力が高まっている日。アイデアをメモしておくと後で役立ちます。',
+    '心を落ち着けてリラックスすると、良い流れがやってきます。',
+    '思い切った決断が吉。迷ったら前に進む方を選んでみて。',
+  ];
+  const fortuneText = texts[Math.floor(rng() * texts.length)];
+
+  const resultDiv = document.getElementById('quickResult');
+  resultDiv.innerHTML = `
+    <div class="quick-result-grid">
+      <div class="quick-result-item">
+        <div class="qr-emoji">🔮</div>
+        <div class="qr-label">今日の運勢</div>
+        <div class="qr-value">${level}（${score}点）</div>
+      </div>
+      <div class="quick-result-item">
+        <div class="qr-emoji">🎨</div>
+        <div class="qr-label">ラッキーカラー</div>
+        <div class="qr-value"><span style="display:inline-block;width:14px;height:14px;border-radius:50%;background:${luckyColor.hex};vertical-align:middle;margin-right:4px;"></span>${luckyColor.name}</div>
+      </div>
+      <div class="quick-result-item">
+        <div class="qr-emoji">🔢</div>
+        <div class="qr-label">ラッキーナンバー</div>
+        <div class="qr-value">${luckyNum}</div>
+      </div>
+    </div>
+    <div class="quick-fortune-text">
+      ${zodiac.symbol} ${zodiac.name} × ☸️${mikkyo.mansion.name}のあなたへ：<br>${fortuneText}
+    </div>
+    <button class="btn-full" onclick="document.getElementById('inputCard').scrollIntoView({behavior:'smooth'})">
+      🔮 もっと詳しく占う（フルバージョン）
+    </button>
+  `;
+  resultDiv.classList.add('active');
+}
+
+// ==================== URL Permalink: Auto-load ====================
+(function checkPermalink() {
+  const params = new URLSearchParams(location.search);
+  const birth = params.get('birth');
+  const blood = params.get('blood');
+  const sex = params.get('sex');
+  const name = params.get('name');
+
+  if (birth && birth.length === 8) {
+    const dateStr = birth.substring(0,4) + '-' + birth.substring(4,6) + '-' + birth.substring(6,8);
+    document.getElementById('birthday').value = dateStr;
+    if (blood) document.getElementById('bloodType').value = blood;
+    if (sex) {
+      const genderMap = { F: 'female', M: 'male', O: 'other' };
+      document.getElementById('gender').value = genderMap[sex] || 'female';
+    }
+    if (name) document.getElementById('nameRomaji').value = name;
+
+    // Auto-run after short delay
+    setTimeout(() => startFortune(), 500);
+  }
+})();
+</script>
+</body>
+</html>
