@@ -997,6 +997,7 @@ canvas { max-width: 100%; }
         <div class="form-group">
           <label>🩸 相手の血液型</label>
           <select id="partnerBloodType">
+            <option value="">不明</option>
             <option value="A">A型</option>
             <option value="B">B型</option>
             <option value="O">O型</option>
@@ -2388,7 +2389,8 @@ function startCompatibility() {
     'OA':80,'OB':70,'OO':70,'OAB':60,
     'ABA':65,'ABB':90,'ABO':55,'ABAB':75
   };
-  const bloodBase = bloodCompat[myBlood + pBlood] || 65;
+  const bloodKnown = pBlood !== '';
+  const bloodBase = bloodKnown ? (bloodCompat[myBlood + pBlood] || 65) : 0;
 
   // Mikkyo mansion distance factor
   const mansionDist = Math.abs(hashStr(data.systems.mikkyo.mansion.name) - hashStr(pMikkyo.mansion.name)) % 27;
@@ -2419,7 +2421,14 @@ function startCompatibility() {
 
   categories.forEach(cat => {
     let raw = 0;
-    cat.weight.forEach((w, i) => raw += bases[i] * w);
+    if (bloodKnown) {
+      cat.weight.forEach((w, i) => raw += bases[i] * w);
+    } else {
+      // Skip blood (index 1), redistribute its weight proportionally
+      const skip = cat.weight[1];
+      const rest = 1 - skip;
+      cat.weight.forEach((w, i) => { if (i !== 1) raw += bases[i] * (w / rest); });
+    }
     raw += Math.floor(rng() * 16) - 8;
     scores[cat.key] = Math.max(30, Math.min(100, Math.round(raw)));
   });
@@ -2427,7 +2436,7 @@ function startCompatibility() {
   // Generate advice
   const adviceTemplates = [
     `${data.systems.zodiac.symbol}${data.systems.zodiac.name}と${pZodiac.symbol}${pZodiac.name}の組み合わせは、${myElem}と${pElem}のエネルギーが交わります。`,
-    `血液型${myBlood}型×${pBlood}型の相性は${bloodBase >= 75 ? '抜群' : bloodBase >= 65 ? '良好' : 'ユニーク'}。`,
+    bloodKnown ? `血液型${myBlood}型×${pBlood}型の相性は${bloodBase >= 75 ? '抜群' : bloodBase >= 65 ? '良好' : 'ユニーク'}。` : `相手の血液型が分かると、さらに精密な相性診断ができます。`,
     `密教占星術では「${data.systems.mikkyo.mansion.name}」と「${pMikkyo.mansion.name}」の宿の組み合わせ。${mikkyoBase >= 75 ? '前世からの深い縁を感じます' : '互いに新しい発見がある関係です'}。`,
     `数秘術のライフパス${data.systems.numerology.number}×${pNumerology.number}の相性。${numBase >= 75 ? '自然体で分かり合える' : '互いの違いが刺激になる'}関係です。`
   ];
@@ -2466,7 +2475,8 @@ function startCompatibility() {
   // Update URL with partner params
   const currentParams = new URLSearchParams(location.search);
   currentParams.set('partner_birth', partnerBirthdayEl.value.replace(/-/g, ''));
-  currentParams.set('partner_blood', pBlood);
+  if (pBlood) currentParams.set('partner_blood', pBlood);
+  else currentParams.delete('partner_blood');
   const pSex = pGender === 'female' ? 'F' : pGender === 'male' ? 'M' : 'O';
   currentParams.set('partner_sex', pSex);
   history.replaceState(null, '', '?' + currentParams.toString());
