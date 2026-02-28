@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🔮 2026年総合占い 🔮</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&display=swap');
 
@@ -793,6 +795,87 @@ canvas { max-width: 100%; }
   font-size: 0.85rem; color: var(--text-light); margin-top: 10px;
   padding-top: 10px; border-top: 1px dashed rgba(200,162,248,0.3);
 }
+
+/* ==================== Compatibility (相性占い) ==================== */
+.compat-section {
+  background: var(--card-bg); backdrop-filter: blur(20px); border-radius: var(--radius);
+  padding: 30px; box-shadow: var(--shadow); border: 1px solid rgba(255,107,157,0.2);
+  margin-top: 24px; display: none; position: relative; overflow: visible;
+}
+.compat-section::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+  border-radius: var(--radius) var(--radius) 0 0;
+  background: linear-gradient(90deg, var(--pink), var(--coral), var(--pink));
+}
+.compat-section.active { display: block; animation: fadeInUp 0.5s ease; }
+.compat-section h2 { text-align: center; margin-bottom: 16px; color: var(--text); }
+.compat-form { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: 12px; margin-bottom: 16px; }
+.compat-form .form-group label { font-size: 0.85rem; }
+.btn-compat {
+  display: block; margin: 0 auto; padding: 12px 36px; border-radius: 50px; border: none; cursor: pointer;
+  font-family: inherit; font-size: 1rem; font-weight: 700;
+  background: linear-gradient(135deg, var(--pink), var(--coral)); color: #fff;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn-compat:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(255,107,157,0.4); }
+.compat-result { display: none; margin-top: 24px; }
+.compat-result.active { display: block; animation: fadeInUp 0.5s ease; }
+.compat-score-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: 14px; margin-bottom: 20px; }
+.compat-score-item {
+  background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(254,246,255,0.9));
+  border-radius: 16px; padding: 18px 12px; text-align: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06); border: 1px solid rgba(200,162,248,0.15);
+}
+.compat-score-item .cs-emoji { font-size: 1.8rem; margin-bottom: 6px; }
+.compat-score-item .cs-label { font-size: 0.8rem; color: var(--text-light); margin-bottom: 4px; }
+.compat-score-item .cs-score { font-size: 1.6rem; font-weight: 900; }
+.compat-score-item .cs-comment { font-size: 0.78rem; color: var(--text-light); margin-top: 6px; }
+.compat-advice {
+  background: rgba(255,107,157,0.06); border-radius: 16px; padding: 20px;
+  border-left: 4px solid var(--pink); margin-bottom: 16px;
+}
+.compat-advice p { font-size: 0.95rem; line-height: 1.7; color: var(--text); }
+.compat-share { text-align: center; }
+
+/* ==================== Monthly Graph (月別運気グラフ) ==================== */
+.monthly-graph-card {
+  background: var(--card-bg); backdrop-filter: blur(20px); border-radius: var(--radius);
+  padding: 30px; box-shadow: var(--shadow); border: 1px solid rgba(200,162,248,0.2);
+  margin-top: 24px; display: none;
+}
+.monthly-graph-card.active { display: block; animation: fadeInUp 0.5s ease; }
+.monthly-graph-card h2 { text-align: center; margin-bottom: 16px; color: var(--text); }
+.monthly-chart-container { position: relative; max-height: 350px; margin-bottom: 20px; }
+.monthly-highlight {
+  background: rgba(200,162,248,0.08); border-radius: 16px; padding: 20px;
+  border-left: 4px solid var(--lavender);
+}
+.monthly-highlight h3 { font-size: 1rem; color: var(--lavender); margin-bottom: 10px; }
+.monthly-highlight p { font-size: 0.9rem; line-height: 1.7; color: var(--text); margin-bottom: 6px; }
+
+/* ==================== Save Image (画像保存) ==================== */
+.btn-save-image {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 28px; border-radius: 50px; border: none; cursor: pointer;
+  font-family: inherit; font-size: 0.95rem; font-weight: 700;
+  background: linear-gradient(135deg, var(--mint), var(--blue)); color: #fff;
+  transition: transform 0.2s, box-shadow 0.2s; margin-right: 10px;
+}
+.btn-save-image:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(125,211,192,0.4); }
+.save-card-container {
+  position: fixed; left: -9999px; top: 0; width: 600px; padding: 30px;
+  background: linear-gradient(135deg, #fef6ff, #f0e6ff); font-family: 'Zen Maru Gothic', sans-serif;
+}
+.save-card-container h1 { text-align: center; font-size: 1.5rem; color: #4a3860; margin-bottom: 16px; }
+.save-card-watermark {
+  text-align: right; font-size: 0.7rem; color: #b0a0c0; margin-top: 16px;
+  border-top: 1px solid rgba(200,162,248,0.2); padding-top: 8px;
+}
+
+@media (max-width: 600px) {
+  .compat-form { grid-template-columns: 1fr; }
+  .compat-score-grid { grid-template-columns: repeat(2, 1fr); }
+}
 </style>
 </head>
 <body>
@@ -884,12 +967,53 @@ canvas { max-width: 100%; }
     <!-- Systems detail -->
     <div class="systems-card fade-in" id="systemsCard"></div>
 
-    <!-- SNS Share -->
+    <!-- SNS Share + Save Image -->
     <div class="share-section" id="shareSection">
+      <button class="btn-save-image" onclick="saveResultImage()">📸 結果を画像保存</button>
       <button class="btn-share-x" onclick="shareOnX()">
         <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
         Xでシェアする
       </button>
+    </div>
+
+    <!-- Monthly Graph -->
+    <div class="monthly-graph-card" id="monthlyGraphCard">
+      <h2>📈 2026年月別運気グラフ</h2>
+      <div class="monthly-chart-container">
+        <canvas id="monthlyChart"></canvas>
+      </div>
+      <div class="monthly-highlight" id="monthlyHighlight"></div>
+    </div>
+
+    <!-- Compatibility -->
+    <div class="compat-section" id="compatSection">
+      <h2>💞 相性占い</h2>
+      <p style="text-align:center;color:var(--text-light);margin-bottom:16px;font-size:0.9rem;">あなたの情報は自動で引き継がれます。相手の情報を入力してください。</p>
+      <div class="compat-form">
+        <div class="form-group">
+          <label>💝 相手の生年月日</label>
+          <input type="date" id="partnerBirthday" value="1992-03-20" />
+        </div>
+        <div class="form-group">
+          <label>🩸 相手の血液型</label>
+          <select id="partnerBloodType">
+            <option value="A">A型</option>
+            <option value="B">B型</option>
+            <option value="O">O型</option>
+            <option value="AB">AB型</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>👤 相手の性別</label>
+          <select id="partnerGender">
+            <option value="male">男性</option>
+            <option value="female">女性</option>
+            <option value="other">その他</option>
+          </select>
+        </div>
+      </div>
+      <button class="btn-compat" onclick="startCompatibility()">💞 相性を占う</button>
+      <div class="compat-result" id="compatResult"></div>
     </div>
 
     <!-- Reset -->
@@ -2117,6 +2241,10 @@ showResults = function(year, month, day, bloodType, gender, systems) {
   _originalShowResults(year, month, day, bloodType, gender, systems);
   // Store for share
   window._shareData = { systems, year, month, day, bloodType };
+  // Show monthly graph
+  renderMonthlyGraph(systems, year, month, day, bloodType);
+  // Show compatibility section
+  document.getElementById('compatSection').classList.add('active');
 };
 
 // ==================== SNS Share (X/Twitter) ====================
@@ -2210,6 +2338,335 @@ function quickFortune() {
   resultDiv.classList.add('active');
 }
 
+// ==================== Compatibility Fortune (相性占い) ====================
+function startCompatibility() {
+  const data = window._shareData;
+  if (!data) { alert('先にあなた自身の占いを実行してください'); return; }
+
+  const partnerBirthdayEl = document.getElementById('partnerBirthday');
+  if (!partnerBirthdayEl.value) { alert('相手の生年月日を入力してください'); return; }
+
+  const [pYear, pMonth, pDay] = partnerBirthdayEl.value.split('-').map(Number);
+  const pBlood = document.getElementById('partnerBloodType').value;
+  const pGender = document.getElementById('partnerGender').value;
+
+  const myYear = data.year, myMonth = data.month, myDay = data.day;
+  const myBlood = data.bloodType;
+
+  // Partner systems
+  const pZodiac = getZodiacSign(pMonth, pDay);
+  const pNineStar = getNineStarKi(pYear);
+  const pAnimal = getAnimalFortune(pYear, pMonth, pDay);
+  const pMikkyo = getMikkyoAstrology(pYear, pMonth, pDay);
+  const pNumerology = getNumerology(pYear, pMonth, pDay);
+
+  // Seeded RNG for compatibility
+  const compatSeed = hashStr(`compat-${myYear}${myMonth}${myDay}-${pYear}${pMonth}${pDay}-${myBlood}-${pBlood}`);
+  const rng = seededRandom(compatSeed);
+
+  // Base compatibility from zodiac element affinity
+  const zodiacElements = {
+    '牡羊座':'火','獅子座':'火','射手座':'火',
+    '牡牛座':'地','乙女座':'地','山羊座':'地',
+    '双子座':'風','天秤座':'風','水瓶座':'風',
+    '蟹座':'水','蠍座':'水','魚座':'水'
+  };
+  const myElem = zodiacElements[data.systems.zodiac.name] || '火';
+  const pElem = zodiacElements[pZodiac.name] || '火';
+  const elemCompat = {
+    '火火':70,'火地':40,'火風':85,'火水':50,
+    '地火':40,'地地':75,'地風':55,'地水':80,
+    '風火':85,'風地':55,'風風':70,'風水':45,
+    '水火':50,'水地':80,'水風':45,'水水':75
+  };
+  const elemBase = (elemCompat[myElem + pElem] || 60);
+
+  // Blood type compatibility matrix
+  const bloodCompat = {
+    'AA':75,'AB':65,'AO':80,'AAB':70,
+    'BA':55,'BB':75,'BO':70,'BAB':85,
+    'OA':80,'OB':70,'OO':70,'OAB':60,
+    'ABA':65,'ABB':90,'ABO':55,'ABAB':75
+  };
+  const bloodBase = bloodCompat[myBlood + pBlood] || 65;
+
+  // Mikkyo mansion distance factor
+  const mansionDist = Math.abs(hashStr(data.systems.mikkyo.mansion.name) - hashStr(pMikkyo.mansion.name)) % 27;
+  const mikkyoBase = mansionDist <= 5 ? 80 : mansionDist <= 13 ? 65 : 55;
+
+  // Numerology life path harmony
+  const numDiff = Math.abs(data.systems.numerology.number - pNumerology.number);
+  const numBase = numDiff === 0 ? 90 : numDiff <= 2 ? 75 : numDiff <= 4 ? 65 : 55;
+
+  // 5 compatibility scores
+  const categories = [
+    { key: 'total', name: '総合相性', emoji: '💫', weight: [0.3, 0.25, 0.2, 0.15, 0.1] },
+    { key: 'love', name: '恋愛相性', emoji: '💕', weight: [0.15, 0.35, 0.15, 0.2, 0.15] },
+    { key: 'friend', name: '友人相性', emoji: '🤝', weight: [0.2, 0.15, 0.3, 0.15, 0.2] },
+    { key: 'work', name: '仕事相性', emoji: '💼', weight: [0.25, 0.1, 0.25, 0.25, 0.15] },
+    { key: 'soul', name: '魂レベル', emoji: '🌌', weight: [0.15, 0.2, 0.15, 0.15, 0.35] }
+  ];
+
+  const bases = [elemBase, bloodBase, mikkyoBase, numBase, 60 + Math.floor(rng() * 30)];
+  const scores = {};
+  const comments = {
+    total: ['最高のパートナー！','とても良い相性です','なかなかの好相性','まずまずの相性','努力次第で伸びしろ大'],
+    love: ['運命の赤い糸で結ばれています','甘い恋愛が期待できます','穏やかな愛が育ちます','じっくり関係を深めて','意外な発展があるかも'],
+    friend: ['一生の親友になれる相手','気楽に付き合える関係','信頼できる仲間です','少し距離感が心地よい','新しい価値観に出会えます'],
+    work: ['最強のビジネスパートナー','互いの長所を活かせます','安定したチームワーク','役割分担がカギです','切磋琢磨できる関係'],
+    soul: ['魂の深い共鳴があります','前世からの縁を感じます','精神的に通じ合える相手','内面で惹かれ合う関係','互いの成長を促す存在']
+  };
+
+  categories.forEach(cat => {
+    let raw = 0;
+    cat.weight.forEach((w, i) => raw += bases[i] * w);
+    raw += Math.floor(rng() * 16) - 8;
+    scores[cat.key] = Math.max(30, Math.min(100, Math.round(raw)));
+  });
+
+  // Generate advice
+  const adviceTemplates = [
+    `${data.systems.zodiac.symbol}${data.systems.zodiac.name}と${pZodiac.symbol}${pZodiac.name}の組み合わせは、${myElem}と${pElem}のエネルギーが交わります。`,
+    `血液型${myBlood}型×${pBlood}型の相性は${bloodBase >= 75 ? '抜群' : bloodBase >= 65 ? '良好' : 'ユニーク'}。`,
+    `密教占星術では「${data.systems.mikkyo.mansion.name}」と「${pMikkyo.mansion.name}」の宿の組み合わせ。${mikkyoBase >= 75 ? '前世からの深い縁を感じます' : '互いに新しい発見がある関係です'}。`,
+    `数秘術のライフパス${data.systems.numerology.number}×${pNumerology.number}の相性。${numBase >= 75 ? '自然体で分かり合える' : '互いの違いが刺激になる'}関係です。`
+  ];
+  const adviceText = adviceTemplates.join('');
+
+  // Render result
+  const resultDiv = document.getElementById('compatResult');
+  let html = '<div class="compat-score-grid">';
+  categories.forEach(cat => {
+    const s = scores[cat.key];
+    const commentArr = comments[cat.key];
+    const ci = s >= 85 ? 0 : s >= 70 ? 1 : s >= 55 ? 2 : s >= 40 ? 3 : 4;
+    const gradient = s >= 75 ? 'linear-gradient(135deg,#fff0f5,#fef6ff)' : 'linear-gradient(135deg,#f5f0ff,#f0f8ff)';
+    html += `
+      <div class="compat-score-item" style="background:${gradient}">
+        <div class="cs-emoji">${cat.emoji}</div>
+        <div class="cs-label">${cat.name}</div>
+        <div class="cs-score" style="color:${s >= 80 ? '#ff6b9d' : s >= 60 ? '#c8a2f8' : '#73b4ff'}">${s}点</div>
+        <div class="cs-comment">${commentArr[ci]}</div>
+      </div>`;
+  });
+  html += '</div>';
+  html += `<div class="compat-advice"><p>${adviceText}</p></div>`;
+  html += `<div class="compat-share">
+    <button class="btn-share-x" onclick="shareCompatOnX()">
+      <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      相性結果をXでシェア
+    </button>
+  </div>`;
+  resultDiv.innerHTML = html;
+  resultDiv.classList.add('active');
+
+  // Store compatibility data for share
+  window._compatData = { scores, myZodiac: data.systems.zodiac, pZodiac, myBlood, pBlood };
+
+  // Update URL with partner params
+  const currentParams = new URLSearchParams(location.search);
+  currentParams.set('partner_birth', partnerBirthdayEl.value.replace(/-/g, ''));
+  currentParams.set('partner_blood', pBlood);
+  const pSex = pGender === 'female' ? 'F' : pGender === 'male' ? 'M' : 'O';
+  currentParams.set('partner_sex', pSex);
+  history.replaceState(null, '', '?' + currentParams.toString());
+
+  resultDiv.scrollIntoView({ behavior: 'smooth' });
+}
+
+function shareCompatOnX() {
+  const c = window._compatData;
+  if (!c) return;
+  const text = `💞 相性占い結果！\n` +
+    `${c.myZodiac.symbol}${c.myZodiac.name} × ${c.pZodiac.symbol}${c.pZodiac.name}\n` +
+    `💫総合${c.scores.total}点 💕恋愛${c.scores.love}点 🤝友人${c.scores.friend}点\n` +
+    `💼仕事${c.scores.work}点 🌌魂${c.scores.soul}点\n\n` +
+    `#2026占い #相性占い`;
+  const url = location.href;
+  window.open(`https://x.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`, '_blank', 'width=550,height=420');
+}
+
+// ==================== Monthly Fortune Graph (2026年月別運気グラフ) ====================
+let monthlyChartInstance = null;
+
+function renderMonthlyGraph(systems, year, month, day, bloodType) {
+  const months = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+  const datasets = [
+    { label: '総合運', key: 'overall', color: '#c8a2f8', data: [] },
+    { label: '恋愛運', key: 'love', color: '#ff6b9d', data: [] },
+    { label: '仕事運', key: 'work', color: '#73b4ff', data: [] },
+    { label: '金運', key: 'money', color: '#ffd166', data: [] }
+  ];
+
+  // Generate monthly scores
+  for (let m = 1; m <= 12; m++) {
+    datasets.forEach(ds => {
+      const seed = hashStr(`monthly-2026-${m}-${ds.key}-${year}${month}${day}-${bloodType}`);
+      const rng = seededRandom(seed);
+      const zodiacFactor = hashStr(systems.zodiac.name + '-' + m) % 20;
+      const nineStarFactor = hashStr(systems.nineStar.name + '-' + m) % 15;
+      const mikkyoFactor = hashStr(systems.mikkyo.mansion.name + '-' + m) % 12;
+      const base = 45 + zodiacFactor + nineStarFactor / 2 + mikkyoFactor / 3;
+      const score = Math.max(30, Math.min(100, Math.round(base + rng() * 25 - 5)));
+      ds.data.push(score);
+    });
+  }
+
+  // Find peak and low months for overall
+  const overallData = datasets[0].data;
+  const peakMonth = overallData.indexOf(Math.max(...overallData)) + 1;
+  const lowMonth = overallData.indexOf(Math.min(...overallData)) + 1;
+
+  // Destroy previous chart
+  if (monthlyChartInstance) {
+    monthlyChartInstance.destroy();
+    monthlyChartInstance = null;
+  }
+
+  // Render Chart.js
+  const ctx = document.getElementById('monthlyChart').getContext('2d');
+  monthlyChartInstance = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: months,
+      datasets: datasets.map(ds => ({
+        label: ds.label,
+        data: ds.data,
+        borderColor: ds.color,
+        backgroundColor: ds.color + '22',
+        borderWidth: 2.5,
+        pointRadius: 4,
+        pointBackgroundColor: ds.color,
+        pointBorderColor: '#fff',
+        pointBorderWidth: 2,
+        tension: 0.3,
+        fill: false
+      }))
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: {
+        legend: { position: 'bottom', labels: { padding: 16, usePointStyle: true, font: { family: "'Zen Maru Gothic', sans-serif", size: 12 } } },
+        tooltip: {
+          backgroundColor: 'rgba(74,56,96,0.9)',
+          titleFont: { family: "'Zen Maru Gothic', sans-serif" },
+          bodyFont: { family: "'Zen Maru Gothic', sans-serif" },
+          callbacks: { label: function(ctx) { return ctx.dataset.label + ': ' + ctx.parsed.y + '点'; } }
+        }
+      },
+      scales: {
+        y: { min: 20, max: 100, ticks: { stepSize: 10, font: { size: 11 } }, grid: { color: 'rgba(200,162,248,0.1)' } },
+        x: { ticks: { font: { size: 11 } }, grid: { color: 'rgba(200,162,248,0.05)' } }
+      }
+    }
+  });
+
+  // Highlight text
+  const highlight = document.getElementById('monthlyHighlight');
+  highlight.innerHTML = `
+    <h3>📊 2026年 運勢ハイライト</h3>
+    <p>🌟 <strong>最高の月: ${peakMonth}月</strong>（総合${overallData[peakMonth - 1]}点）— この時期に大きな決断や新しいチャレンジを！</p>
+    <p>⚠️ <strong>注意の月: ${lowMonth}月</strong>（総合${overallData[lowMonth - 1]}点）— 無理せず充電期間として過ごすのが吉。</p>
+    <p>💕 恋愛が最も好調なのは<strong>${datasets[1].data.indexOf(Math.max(...datasets[1].data)) + 1}月</strong>、仕事運のピークは<strong>${datasets[2].data.indexOf(Math.max(...datasets[2].data)) + 1}月</strong>です。</p>
+  `;
+
+  // Show the card
+  document.getElementById('monthlyGraphCard').classList.add('active');
+}
+
+// ==================== Save Result Image (結果カード画像保存) ====================
+function saveResultImage() {
+  if (!currentData) { alert('先に占いを実行してください'); return; }
+
+  const data = window._shareData;
+  const pd = currentData.periodData.year;
+  const lucky = pd.lucky;
+
+  // Create offscreen card
+  let saveCard = document.getElementById('saveCardContainer');
+  if (!saveCard) {
+    saveCard = document.createElement('div');
+    saveCard.id = 'saveCardContainer';
+    saveCard.className = 'save-card-container';
+    document.body.appendChild(saveCard);
+  }
+
+  // Build card content
+  const badges = [
+    `${data.systems.zodiac.symbol} ${data.systems.zodiac.name}`,
+    `🔯 ${data.systems.nineStar.name}`,
+    `${data.systems.animal.emoji} ${data.systems.animal.name}`,
+    `🩸 ${data.bloodType}型`,
+    `☸️ ${data.systems.mikkyo.mansion.name}`,
+    `${data.systems.mikkyo.luminary.emoji} ${data.systems.mikkyo.luminary.name}`
+  ];
+  if (data.systems.kabbalah) badges.push(`🕎 カバラ${data.systems.kabbalah.expression.number}`);
+
+  const topScores = Object.entries(pd.scores)
+    .sort(([,a],[,b]) => b - a)
+    .slice(0, 5);
+  const catMap = {};
+  CATEGORIES.forEach(c => catMap[c.key] = c);
+
+  saveCard.innerHTML = `
+    <h1>🔮 2026年 総合占い結果 🔮</h1>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-bottom:16px;">
+      ${badges.map(b => `<span style="background:linear-gradient(135deg,#fef6ff,#f0e6ff);padding:4px 12px;border-radius:20px;font-size:0.8rem;border:1px solid rgba(200,162,248,0.3);">${b}</span>`).join('')}
+    </div>
+    <div style="margin-bottom:16px;">
+      <h3 style="font-size:1rem;color:#4a3860;margin-bottom:10px;">📊 運勢スコア TOP5</h3>
+      ${topScores.map(([key, score]) => {
+        const cat = catMap[key];
+        const barW = score + '%';
+        return `<div style="margin-bottom:8px;">
+          <div style="display:flex;justify-content:space-between;font-size:0.85rem;margin-bottom:3px;">
+            <span>${cat ? cat.icon + ' ' + cat.name : key}</span><span style="font-weight:700;color:${cat ? cat.color : '#c8a2f8'}">${score}点</span>
+          </div>
+          <div style="background:rgba(200,162,248,0.15);border-radius:8px;height:10px;overflow:hidden;">
+            <div style="width:${barW};height:100%;border-radius:8px;background:linear-gradient(90deg,${cat ? cat.color : '#c8a2f8'},${cat ? cat.color + 'aa' : '#c8a2f8aa'});"></div>
+          </div>
+        </div>`;
+      }).join('')}
+    </div>
+    <div style="margin-bottom:12px;">
+      <h3 style="font-size:1rem;color:#4a3860;margin-bottom:8px;">🍀 ラッキーポイント</h3>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center;font-size:0.8rem;">
+        <div style="background:rgba(255,107,157,0.08);border-radius:12px;padding:8px;">
+          <div>🎨 カラー</div><div style="font-weight:700;">${lucky.color1.name}</div>
+        </div>
+        <div style="background:rgba(200,162,248,0.08);border-radius:12px;padding:8px;">
+          <div>🧭 方角</div><div style="font-weight:700;">${lucky.direction}</div>
+        </div>
+        <div style="background:rgba(125,211,192,0.08);border-radius:12px;padding:8px;">
+          <div>🍽️ フード</div><div style="font-weight:700;">${lucky.food}</div>
+        </div>
+      </div>
+    </div>
+    <div class="save-card-watermark">🔮 2026年総合占い — tsuarai-1977.github.io/fortune-2026-/</div>
+  `;
+
+  // Use html2canvas
+  html2canvas(saveCard, {
+    scale: 2,
+    backgroundColor: null,
+    useCORS: true,
+    logging: false,
+    width: 600,
+    windowWidth: 600
+  }).then(canvas => {
+    const link = document.createElement('a');
+    const now = new Date();
+    const dateStr = now.getFullYear() + String(now.getMonth()+1).padStart(2,'0') + String(now.getDate()).padStart(2,'0');
+    link.download = `fortune2026_結果_${dateStr}.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  }).catch(err => {
+    console.error('Image save error:', err);
+    alert('画像の生成に失敗しました。もう一度お試しください。');
+  });
+}
+
 // ==================== URL Permalink: Auto-load ====================
 (function checkPermalink() {
   const params = new URLSearchParams(location.search);
@@ -2229,7 +2686,26 @@ function quickFortune() {
     if (name) document.getElementById('nameRomaji').value = name;
 
     // Auto-run after short delay
-    setTimeout(() => startFortune(), 500);
+    setTimeout(() => {
+      startFortune();
+
+      // Auto-fill partner and run compatibility if partner params exist
+      const pBirth = params.get('partner_birth');
+      const pBlood = params.get('partner_blood');
+      const pSex = params.get('partner_sex');
+      if (pBirth && pBirth.length === 8) {
+        const pDateStr = pBirth.substring(0,4) + '-' + pBirth.substring(4,6) + '-' + pBirth.substring(6,8);
+        setTimeout(() => {
+          document.getElementById('partnerBirthday').value = pDateStr;
+          if (pBlood) document.getElementById('partnerBloodType').value = pBlood;
+          if (pSex) {
+            const gMap = { F: 'female', M: 'male', O: 'other' };
+            document.getElementById('partnerGender').value = gMap[pSex] || 'female';
+          }
+          setTimeout(() => startCompatibility(), 500);
+        }, 3200);
+      }
+    }, 500);
   }
 })();
 </script>
