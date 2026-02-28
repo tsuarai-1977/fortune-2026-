@@ -748,6 +748,51 @@ canvas { max-width: 100%; }
   .quick-result-grid { grid-template-columns: 1fr; }
   .quick-fortune-input { flex-direction: column; }
 }
+
+/* ==================== Today Special (今日限定スペシャル) ==================== */
+.special-container { max-width: 600px; margin: 0 auto; }
+.special-guardian-card {
+  background: linear-gradient(135deg, rgba(200,162,248,0.15), rgba(255,107,157,0.1));
+  border-radius: var(--radius); padding: 28px; margin-bottom: 20px;
+  border: 1px solid rgba(200,162,248,0.25); text-align: center;
+  position: relative; overflow: hidden;
+}
+.special-guardian-card::before {
+  content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+  background: radial-gradient(circle, rgba(200,162,248,0.08) 0%, transparent 70%);
+  animation: guardianGlow 4s ease-in-out infinite alternate;
+}
+@keyframes guardianGlow {
+  0% { transform: scale(0.8); opacity: 0.5; }
+  100% { transform: scale(1.2); opacity: 1; }
+}
+.guardian-emoji { font-size: 3rem; margin-bottom: 12px; position: relative; }
+.guardian-type {
+  font-size: 1.1rem; font-weight: 700; color: var(--lavender);
+  margin-bottom: 6px; position: relative;
+}
+.guardian-message {
+  font-size: 1rem; line-height: 1.8; color: var(--text); position: relative;
+  padding: 16px; background: rgba(255,255,255,0.7); border-radius: 12px;
+  border-left: 4px solid var(--lavender); margin-top: 12px; text-align: left;
+}
+.special-action-card {
+  background: linear-gradient(135deg, rgba(255,209,102,0.15), rgba(255,193,7,0.08));
+  border-radius: var(--radius); padding: 28px; text-align: center;
+  border: 2px solid rgba(255,209,102,0.3);
+}
+.action-label {
+  font-size: 0.85rem; color: var(--text-light); margin-bottom: 8px;
+  letter-spacing: 2px; text-transform: uppercase;
+}
+.action-emoji { font-size: 2.5rem; margin-bottom: 10px; }
+.action-text {
+  font-size: 1.2rem; font-weight: 700; color: var(--text); line-height: 1.6;
+}
+.action-reason {
+  font-size: 0.85rem; color: var(--text-light); margin-top: 10px;
+  padding-top: 10px; border-top: 1px dashed rgba(200,162,248,0.3);
+}
 </style>
 </head>
 <body>
@@ -1682,6 +1727,13 @@ function showResults(year, month, day, bloodType, gender, systems) {
     const advice = generateAdvice(adviceRng, systems, lucky, scores);
 
     periodData[period.key] = { scores, texts, lucky, advice };
+
+    // Generate special content for today_special
+    if (period.key === 'today_special') {
+      const specialSeed = hashStr(`special-guardian-${seedExtra}-${year}${month}${day}`);
+      const specialRng = seededRandom(specialSeed);
+      periodData[period.key].special = generateTodaySpecial(specialRng, systems);
+    }
   });
 
   currentData = { systems, periodData };
@@ -1742,7 +1794,31 @@ function renderPeriodPanels(periodData, systems) {
     panel.className = `period-panel ${pi === 0 ? 'active' : ''}`;
     panel.id = `panel-${period.key}`;
 
-    // Fortune cards
+    // Today Special: unique content
+    if (period.key === 'today_special' && data.special) {
+      const sp = data.special;
+      panel.innerHTML = `
+        <h2 style="text-align:center;margin-bottom:20px;color:var(--lavender);font-size:1.2rem;">${period.label}</h2>
+        <div class="special-container">
+          <div class="special-guardian-card fade-in">
+            <div class="guardian-emoji">${sp.guardian.emoji}</div>
+            <div class="guardian-type">あなたの守護霊：${sp.guardian.type}</div>
+            <p style="font-size:0.85rem;color:var(--text-light);margin-bottom:4px;">— ${sp.guardian.aura}のオーラを纏う存在 —</p>
+            <div class="guardian-message">${sp.message.replace(/\n/g, '<br>')}</div>
+          </div>
+          <div class="special-action-card fade-in">
+            <div class="action-label">🔑 今日だけの秘密のラッキーアクション</div>
+            <div class="action-emoji">${sp.action.emoji}</div>
+            <div class="action-text">${sp.action.action}</div>
+            <div class="action-reason">💡 ${sp.action.reason}</div>
+          </div>
+        </div>
+      `;
+      container.appendChild(panel);
+      return;
+    }
+
+    // Fortune cards (通常タブ)
     let cardsHTML = '<div class="fortune-grid">';
     CATEGORIES.forEach(cat => {
       const score = data.scores[cat.key];
@@ -1889,6 +1965,82 @@ function getBarGradient(score) {
   if (score >= 60) return 'linear-gradient(90deg, #7dd3c0, #73b4ff)';
   if (score >= 40) return 'linear-gradient(90deg, #ffd166, #ff8a80)';
   return 'linear-gradient(90deg, #90a4ae, #b0bec5)';
+}
+
+// ==================== Today Special (守護霊メッセージ + ラッキーアクション) ====================
+function generateTodaySpecial(rng, systems) {
+  const guardianTypes = [
+    { type: '古代の武将', emoji: '⚔️', aura: '力強い闘志' },
+    { type: '平安の姫君', emoji: '🌸', aura: '優雅な気品' },
+    { type: '修行僧', emoji: '📿', aura: '深い慈悲' },
+    { type: '天才学者', emoji: '📚', aura: '鋭い知性' },
+    { type: '旅の行者', emoji: '🏔️', aura: '自由な冒険心' },
+    { type: '巫女', emoji: '⛩️', aura: '清らかな霊力' },
+    { type: '名工の職人', emoji: '🔨', aura: '揺るぎない技' },
+    { type: '宮廷の芸術家', emoji: '🎨', aura: '豊かな感性' },
+    { type: '海の航海者', emoji: '⛵', aura: '果敢な開拓精神' },
+    { type: '森の賢者', emoji: '🌿', aura: '穏やかな叡智' },
+    { type: '星の観測者', emoji: '🔭', aura: '宇宙との繋がり' },
+    { type: '大地の守り手', emoji: '🌍', aura: '揺るがぬ安定感' },
+  ];
+
+  const messages = [
+    `今日は「信じる力」が試される日。迷いが生じても、心の奥底にある声に耳を傾けなさい。あなたの直感は正しい方向を指し示しています。`,
+    `人との出会いに特別な意味がある一日。今日すれ違う人の中に、あなたの人生を変える縁が隠れています。笑顔を忘れずに。`,
+    `長い間温めてきた想いを形にする時が来ました。完璧を求めず、まず一歩を踏み出しなさい。その勇気が大きな流れを生みます。`,
+    `今日は「手放す」ことで新しいものが入ってきます。執着しているものを見つめ直し、心を軽くすることが開運の鍵です。`,
+    `あなたの言葉に特別な力が宿る日。何気ない一言が誰かを救い、巡り巡ってあなた自身を守る光となります。`,
+    `静かに内面を見つめる時間を大切にしなさい。忙しさの中で見失っていた本当の望みが、ふと浮かび上がってくるでしょう。`,
+    `今日の困難は、あなたを次のステージに導くための試練。乗り越えた先に見える景色は、今の想像を超える美しさです。`,
+    `感謝の気持ちが運気を大きく動かす日。身近な人への「ありがとう」が、思いがけない幸運の扉を開きます。`,
+    `過去の経験が今日、思わぬ形で活きてきます。一見無駄に思えた時間にも意味があったと気づく瞬間が訪れるでしょう。`,
+    `あなたの中に眠っている才能が目覚めようとしています。新しいことに触れてみなさい。驚くほど自然にできる自分に出会えます。`,
+    `今日は「待つ」ことに意味がある日。焦って動くより、流れに身を任せることで最善のタイミングが訪れます。`,
+    `小さな親切が大きな波紋を生む日。見返りを求めない善意が、宇宙を味方につける最強の開運法です。`,
+    `心の中にある不安は、成長のサイン。恐れを感じるということは、あなたがまさに変化の入り口に立っている証拠です。`,
+    `今日出会う「美しいもの」に注目しなさい。花、空、音楽、笑顔——その美しさがあなたのエネルギーを満たしてくれます。`,
+    `遠い昔から受け継がれてきたあなたの魂の力が、今日特に強く輝いています。自分の可能性を信じて、堂々と進みなさい。`,
+    `今日のあなたには「癒しの力」が備わっています。疲れている人のそばにいるだけで、その人の心を温めることができるでしょう。`,
+    `思いがけない場所にチャンスが隠れています。いつもと違う道、いつもと違う選択が幸運への近道です。`,
+    `夜空を見上げてみなさい。星々はあなたの味方です。宇宙の広さを感じる時、小さな悩みが溶けていくでしょう。`,
+    `今日は「始まり」の気配に満ちています。何か新しいことを始めるなら今日が最適。小さな種が大きな木に育ちます。`,
+    `あなたの優しさは弱さではなく、最大の武器。今日はその優しさを存分に発揮することで、周囲も自分も幸せにできます。`,
+  ];
+
+  const actions = [
+    { action: '朝一番に窓を開けて深呼吸を3回する', emoji: '🌅', reason: '新鮮な気の流れがあなたの運気をリセットします' },
+    { action: '普段選ばない色の服やアクセサリーを身につける', emoji: '👗', reason: '変化のエネルギーが新しい出会いを引き寄せます' },
+    { action: '利き手と反対の手でコップを持って飲む', emoji: '🥤', reason: '脳の普段使わない部分が活性化し、直感力が高まります' },
+    { action: '感謝の気持ちを込めて誰かに「ありがとう」と伝える', emoji: '💝', reason: '感謝の波動が幸運の連鎖を生み出します' },
+    { action: '今日の空の写真を1枚撮って保存する', emoji: '📸', reason: 'この瞬間の空には特別なメッセージが隠されています' },
+    { action: '好きな曲を声に出して歌う（小さな声でもOK）', emoji: '🎵', reason: '声の振動があなたのオーラを浄化します' },
+    { action: 'いつもと違う道を通って帰る', emoji: '🛤️', reason: '未知のルートに幸運のエネルギーが満ちています' },
+    { action: '5分間だけ目を閉じて「静寂」を味わう', emoji: '🧘', reason: '心の静けさの中に、宇宙からのメッセージが届きます' },
+    { action: '今日初めて会った人に笑顔で挨拶する', emoji: '😊', reason: '笑顔のエネルギーが相手を通じて倍返しされます' },
+    { action: '植物に触れるか、花の香りを嗅ぐ', emoji: '🌷', reason: '自然のエネルギーがあなたの疲れを癒してくれます' },
+    { action: '夜寝る前に今日一番良かったことを3つ書き出す', emoji: '📝', reason: 'ポジティブな記憶が明日の運気を底上げします' },
+    { action: '昔の友人にメッセージを送る', emoji: '💌', reason: '過去の縁が再び動き出すタイミングです' },
+    { action: '財布の中を整理してお札の向きを揃える', emoji: '👛', reason: '金運の通り道を整えると金運が活性化します' },
+    { action: '背筋をピンと伸ばして30秒間キープする', emoji: '🧍', reason: '姿勢を正すと気の流れが整い、判断力が冴えます' },
+    { action: 'コップ一杯の水をゆっくり味わって飲む', emoji: '💧', reason: '水は浄化の象徴。体の内側から運気を清めます' },
+    { action: '「今日は絶対にうまくいく」と鏡の前で3回唱える', emoji: '🪞', reason: '言霊の力があなたの潜在意識を書き換えます' },
+    { action: '今日のラッキーカラーのものを食べる', emoji: '🍽️', reason: '色のエネルギーを体内に取り込むと効果が倍増します' },
+    { action: '1分間、手のひらをこすり合わせて温める', emoji: '🤲', reason: '手のひらのチャクラが活性化し、ヒーリング力が高まります' },
+    { action: '今日見た夢の内容をメモする', emoji: '💭', reason: '夢は潜在意識からの重要なメッセージです' },
+    { action: '靴をきれいに磨く（または整える）', emoji: '👟', reason: '足元を整えると人生の土台が安定します' },
+    { action: 'お気に入りの言葉や名言を1つ書き写す', emoji: '✒️', reason: '手書きの文字にはあなたの気が宿り、お守りになります' },
+    { action: '今日一日「ネガティブな言葉」を使わないチャレンジをする', emoji: '✨', reason: 'ポジティブな言葉だけで過ごすと、磁場が変わります' },
+    { action: '東の方角を向いて伸びをする', emoji: '🌄', reason: '東は始まりの方角。新しいエネルギーを取り込めます' },
+    { action: 'ハンカチやタオルを新しいものに替える', emoji: '🧣', reason: '身近な布を新調すると、停滞した運気が動き出します' },
+  ];
+
+  const guardian = guardianTypes[Math.floor(rng() * guardianTypes.length)];
+  const message = messages[Math.floor(rng() * messages.length)];
+  const actionData = actions[Math.floor(rng() * actions.length)];
+
+  const personalMessage = `${systems.zodiac.symbol}${systems.zodiac.name}の星と☸️${systems.mikkyo.mansion.name}の宿を持つあなたへ——\n\n${message}`;
+
+  return { guardian, message: personalMessage, action: actionData };
 }
 
 function getWeekNumber(date) {
